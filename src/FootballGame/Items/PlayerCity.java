@@ -35,13 +35,14 @@ public class PlayerCity extends Character
         \param x Pozitia initiala pe axa X a eroului.
         \param y Pozitia initiala pe axa Y a eroului.
      */
-    public PlayerCity(RefLinks refLink, float x, float y)
+    public PlayerCity(RefLinks refLink, float x, float y, byte id)
     {
         ///Apel al constructorului clasei de baza
         super(refLink, x,y, Character.DEFAULT_CREATURE_WIDTH, Character.DEFAULT_CREATURE_HEIGHT);
         ///Seteaza imaginea de start a eroului
         image = Assets.heroRight4;
         id_team = 1;
+        ID = id;
 
         ///Stabilieste pozitia relativa si dimensiunea dreptunghiului de coliziune, starea implicita(normala)
         normalBounds.x = 16;
@@ -61,10 +62,6 @@ public class PlayerCity extends Character
      */
     @Override
     public void Update() {
-        ///Verifica daca a fost apasata o tasta
-        GetInput();
-        ///Actualizeaza pozitia
-        Move();
         ///Actualizeaza imaginea
         /// Actualizeaza daca eroul a fost selectat ca Player 1(care foloseste ArrowKeys)
 
@@ -85,184 +82,233 @@ public class PlayerCity extends Character
             width=48;
             height = 48;}
 
+        /// Daca un jucator intercepteaza mingea, stabilim comportamentul dupa caz
         if(ball.GetX() <= GetX() && (GetX() <= ball.GetX()+48) && (ball.GetY() <= GetY()+24) && (GetY()+24 <=ball.GetY()+48))
         {
             HasBall = true;
             ball.setDirection(false);
-            behavior="Control Ball";
+            ///Schimbam comportamentul jucatorului care era destinat sa primeasca mingea
             for(int i=0;i<NoPlayers;i++)
-                if(Player[i].behavior == "Receive Ball")
+                if(Player[i].behavior == "Receive Ball"){
                     Player[i].behavior = "Wait";
+                    /// Daca
+                    if(flag==1)
+                        Player[i].behavior = "Control Player";
+                }
+        }
+        if(behavior == "Receive Ball")
+        {
+            ReceiveBall();
+            x -= xMove;
+            y -= yMove;
         }
 
 
         if(fanion==0) {   /// Daca s-a terminat animatia, poate incepe una noua
-            if(flag==1)   /// Daca jucatorii sunt ai echipei gazda,
+            if (flag == 1)   /// Daca jucatoru este al echipei gazda, cea controlata de utilizator, executa instructiunile primite
             {
+                if (!HasBall) {
+                    if (behavior == "Control Player" && refLink.GetKeyManager().switchPlayer){
+                            System.out.println("Player actual inainte de press: "+ID+behavior);
+                            SwitchPlayer();
+                            System.out.println("Player actual dupa press: "+ID+behavior);
+                            System.out.println();
+                        try {
+                            Thread.sleep(400);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }else if(behavior == "Control Player"){
+                        SetSpeed(2.12f);
+                        ///Verifica daca a fost apasata o tasta
+                        GetInput();
+                        ///Actualizeaza pozitia
+                        Move();
+                        //Daca e apasata tasta pentru deposedare in jurul oponentului, recupereaza mingea
+                        if (refLink.GetKeyManager().tackle){
+                            for(int i=0;i<NoPlayers;i++)
+                                if(Player[i].HasBall && Player[i].GetX() <= GetX() && (GetX() <= Player[i].GetX()+48) && (Player[i].GetY() <= GetY()+24) && (GetY()+24 <=Player[i].GetY()+48))
+                                {
+                                    Player[i].HasBall = false;
+                                    HasBall = true;
+                                }
+                        }
 
-            }
-            if (!HasBall) {
-                SetSpeed(0.0f);
-            }
-            else
-                {
-                    System.out.println(camY);
-                if (refLink.GetKeyManager().left && refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
-                    image = Assets.heroLeft4;
-                    SetAttackMode();
-                    SetSpeed(0.0f);
-                    fanion = 0;
-                    PassingBallCoordonations("NW");
-                    ball.SetX(x-24);
-                    ball.SetY(y-24);
-                    ball.setDirection(true);
-                    HasBall = false;
-                } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
-                    image = Assets.heroLeft4;
-                    SetAttackMode();
-                    SetSpeed(0.0f);
-                    fanion = 0;
-                    PassingBallCoordonations("SW");
-                    ball.SetX(x-24);
-                    ball.SetY(y+48);
-                    ball.setDirection(true);
-                    HasBall = false;
-                }else if (refLink.GetKeyManager().left && refLink.GetKeyManager().down) {
-                    image = Assets.heroLeft4;
-                    SetAttackMode();
-                    SetSpeed(2.12f);
-                    fanion = 0;
-                    if(-camX > 5 && -camY < (Map.height -768) - 5)
-                    {
-                        camX += speed;
-                        camY -= speed;
-                    }
-                    else if(-camX > 5) camX += speed;
-                    else if(-camY < (Map.height -768) - 5) camY -= speed;
-                }else if (refLink.GetKeyManager().left && refLink.GetKeyManager().up) {
-                    image = Assets.heroLeft4;
-                    SetAttackMode();
-                    SetSpeed(2.12f);
-                    fanion = 0;
-                    if(-camX > 5 && -camY > 5 )
-                    {
-                        camX += speed;
-                        camY += speed;
-                    }
-                    else if( -camX > 5) camX += speed;
-                    else if(-camY > 5) camY += speed;
-                }else if (refLink.GetKeyManager().left && refLink.GetKeyManager().pass) {
-                    image = Assets.block4;
-                    SetAttackMode();
-                    SetSpeed(0.0f);
-                    fanion = 0;
-                    PassingBallCoordonations("W");
-                    ball.SetX(x-48);
-                    ball.SetY(y);
-                    ball.setDirection(true);
-                    HasBall = false;
-                } else if(refLink.GetKeyManager().left){
-                    image = Assets.heroLeft4;
-                    SetNormalMode();
-                    SetSpeed(3.0f);
-                    fanion = 0;
-                    if(-camX > 5)
-                        camX += speed;
-                }
-                else if (refLink.GetKeyManager().right && refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
-                    image = Assets.heroLeft4;
-                    SetAttackMode();
-                    SetSpeed(0.0f);
-                    fanion = 0;
-                    PassingBallCoordonations("NE");
-                    ball.SetX(x);
-                    ball.SetY(y);
-                    ball.setDirection(true);
-                    HasBall = false;
-                } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
-                    image = Assets.heroLeft4;
-                    SetAttackMode();
-                    SetSpeed(0.0f);
-                    fanion = 0;
-                    PassingBallCoordonations("SE");
-                    ball.SetX(x+24);
-                    ball.SetY(y+24);
-                    ball.setDirection(true);
-                    HasBall = false;
-                }else if (refLink.GetKeyManager().right && refLink.GetKeyManager().down) {
-                    image = Assets.block4;
-                    SetAttackMode();
-                    SetSpeed(2.12f);
-                    fanion = 0;
-                    if(-camX < Map.width -1536 -5  && -camY < (Map.height -768) - 5)
-                    {
-                        camX -= speed;
-                        camY -= speed;
-                    }
-                    else if(-camX < Map.width -1536 -5) camX -= speed;
-                    else if(-camY < (Map.height -768) - 5) camY -= speed;
-                }else if (refLink.GetKeyManager().right && refLink.GetKeyManager().up) {
-                    image = Assets.block4;
-                    SetAttackMode();
-                    SetSpeed(2.12f);
-                    fanion = 0;
-                    if(-camX < Map.width -1536 -5 && -camY > 5 ) {
-                        camX -= speed;
-                        camY += speed;
-                    }
-                    else if(-camX < Map.width -1536 -5) camX -= speed;
-                    else if(-camY > 5) camY += speed;
-                }else if (refLink.GetKeyManager().right && refLink.GetKeyManager().pass) {
-                    image = Assets.block4;
-                    SetAttackMode();
-                    SetSpeed(0.0f);
-                    fanion = 0;
-                    PassingBallCoordonations("E");
-                    ball.SetX(x);
-                    ball.SetY(y);
-                    ball.setDirection(true);
-                    HasBall = false;
-                } else if(refLink.GetKeyManager().right){
-                    image = Assets.heroRight4;
-                    SetNormalMode();
-                    SetSpeed(3.0f);
-                    fanion = 0;
-                    if(-camX < Map.width -1536 -5)
-                        camX -= speed;
-                }else if (refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
-                    image = Assets.block4;
-                    SetAttackMode();
-                    SetSpeed(0.0f);
-                    fanion = 0;
-                    PassingBallCoordonations("N");
-                    ball.SetX(x-24);
-                    ball.SetY(y-24);
-                    ball.setDirection(true);
-                    HasBall = false;
-                } else if(refLink.GetKeyManager().up){
-                    image = Assets.block4;
-                    SetNormalMode();
-                    SetSpeed(3.0f);
-                    if(-camY > 5 )
-                        camY += speed;
-                }else if (refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
-                    image = Assets.block4;
-                    SetAttackMode();
-                    SetSpeed(0.0f);
-                    fanion = 0;
-                    PassingBallCoordonations("S");
-                    ball.SetX(x);
-                    ball.SetY(y+48);
-                    ball.setDirection(true);
-                    HasBall = false;
-                } else if(refLink.GetKeyManager().down){
-                    image = Assets.block4;
-                    SetNormalMode();
-                    SetSpeed(3.0f);
-                    if(-camY < (Map.height -768) - 5)
-                        camY -= speed;
-                }
 
+                    }else       // Daca nu este jucatorul controlat de utilizator, va actiona singur
+                        {
+                            if (status == "attacking") {
+
+                            }
+                            if (status == "defending") {
+
+                            }
+                    }
+                    //Daca jucatorul este in posesia mingii, utilizatorul ii controleaza toate actiunile
+                } else {
+                    ///Verifica daca a fost apasata o tasta
+                    GetInput();
+                    ///Actualizeaza pozitia
+                    Move();
+
+                    if (refLink.GetKeyManager().left && refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
+                        image = Assets.heroLeft4;
+                        SetAttackMode();
+                        SetSpeed(0.0f);
+                        fanion = 0;
+                        PassingBallCoordonations("NW");
+                        ball.SetX(x - 24);
+                        ball.SetY(y - 24);
+                        ball.setDirection(true);
+                        HasBall = false;
+                    } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
+                        image = Assets.heroLeft4;
+                        SetAttackMode();
+                        SetSpeed(0.0f);
+                        fanion = 0;
+                        PassingBallCoordonations("SW");
+                        ball.SetX(x - 24);
+                        ball.SetY(y + 48);
+                        ball.setDirection(true);
+                        HasBall = false;
+                    } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().down) {
+                        image = Assets.heroLeft4;
+                        SetAttackMode();
+                        SetSpeed(2.12f);
+                        fanion = 0;
+                        if (-camX > 5 && -camY < (Map.height - 768) - 5) {
+                            camX += speed;
+                            camY -= speed;
+                        } else if (-camX > 5) camX += speed;
+                        else if (-camY < (Map.height - 768) - 5) camY -= speed;
+                    } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().up) {
+                        image = Assets.heroLeft4;
+                        SetAttackMode();
+                        SetSpeed(2.12f);
+                        fanion = 0;
+                        if (-camX > 5 && -camY > 5) {
+                            camX += speed;
+                            camY += speed;
+                        } else if (-camX > 5) camX += speed;
+                        else if (-camY > 5) camY += speed;
+                    } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().pass) {
+                        image = Assets.block4;
+                        SetAttackMode();
+                        SetSpeed(0.0f);
+                        fanion = 0;
+                        PassingBallCoordonations("W");
+                        ball.SetX(x - 48);
+                        ball.SetY(y);
+                        ball.setDirection(true);
+                        HasBall = false;
+                    } else if (refLink.GetKeyManager().left) {
+                        image = Assets.heroLeft4;
+                        SetNormalMode();
+                        SetSpeed(3.0f);
+                        fanion = 0;
+                        if (-camX > 5)
+                            camX += speed;
+                    } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
+                        image = Assets.heroLeft4;
+                        SetAttackMode();
+                        SetSpeed(0.0f);
+                        fanion = 0;
+                        PassingBallCoordonations("NE");
+                        ball.SetX(x);
+                        ball.SetY(y);
+                        ball.setDirection(true);
+                        HasBall = false;
+                    } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
+                        image = Assets.heroLeft4;
+                        SetAttackMode();
+                        SetSpeed(0.0f);
+                        fanion = 0;
+                        PassingBallCoordonations("SE");
+                        ball.SetX(x + 24);
+                        ball.SetY(y + 24);
+                        ball.setDirection(true);
+                        HasBall = false;
+                    } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().down) {
+                        image = Assets.block4;
+                        SetAttackMode();
+                        SetSpeed(2.12f);
+                        fanion = 0;
+                        if (-camX < Map.width - 1536 - 5 && -camY < (Map.height - 768) - 5) {
+                            camX -= speed;
+                            camY -= speed;
+                        } else if (-camX < Map.width - 1536 - 5) camX -= speed;
+                        else if (-camY < (Map.height - 768) - 5) camY -= speed;
+                    } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().up) {
+                        image = Assets.block4;
+                        SetAttackMode();
+                        SetSpeed(2.12f);
+                        fanion = 0;
+                        if (-camX < Map.width - 1536 - 5 && -camY > 5) {
+                            camX -= speed;
+                            camY += speed;
+                        } else if (-camX < Map.width - 1536 - 5) camX -= speed;
+                        else if (-camY > 5) camY += speed;
+                    } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().pass) {
+                        image = Assets.block4;
+                        SetAttackMode();
+                        SetSpeed(0.0f);
+                        fanion = 0;
+                        PassingBallCoordonations("E");
+                        ball.SetX(x);
+                        ball.SetY(y);
+                        ball.setDirection(true);
+                        HasBall = false;
+                    } else if (refLink.GetKeyManager().right) {
+                        image = Assets.heroRight4;
+                        SetNormalMode();
+                        SetSpeed(3.0f);
+                        fanion = 0;
+                        if (-camX < Map.width - 1536 - 5)
+                            camX -= speed;
+                    } else if (refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
+                        image = Assets.block4;
+                        SetAttackMode();
+                        SetSpeed(0.0f);
+                        fanion = 0;
+                        PassingBallCoordonations("N");
+                        ball.SetX(x - 24);
+                        ball.SetY(y - 24);
+                        ball.setDirection(true);
+                        HasBall = false;
+                    } else if (refLink.GetKeyManager().up) {
+                        image = Assets.block4;
+                        SetNormalMode();
+                        SetSpeed(3.0f);
+                        if (-camY > 5)
+                            camY += speed;
+                    } else if (refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
+                        image = Assets.block4;
+                        SetAttackMode();
+                        SetSpeed(0.0f);
+                        fanion = 0;
+                        PassingBallCoordonations("S");
+                        ball.SetX(x);
+                        ball.SetY(y + 48);
+                        ball.setDirection(true);
+                        HasBall = false;
+                    } else if (refLink.GetKeyManager().down) {
+                        image = Assets.block4;
+                        SetNormalMode();
+                        SetSpeed(3.0f);
+                        if (-camY < (Map.height - 768) - 5)
+                            camY -= speed;
+                    }
+
+                }
+            }//Daca jucatorul este al echipei oaspete, cea controlata in totalitate de CPU, executa instructiunile primite
+            else if(flag==2)
+            {
+                if (status == "attacking") {
+
+                }
+                if (status == "defending") {
+
+                }
             }
 
         }
@@ -331,7 +377,7 @@ public class PlayerCity extends Character
 
     }
 
-    public void PassingBallCoordonations(String dir){
+    private void PassingBallCoordonations(String dir){
         float distFromPointToLine = 2000.0f; /// Distanta de la pozitia jucatorului destinatie catre dreapta invizibila ce reprezinta directia
                                              /// dorita la pasa. Initializam cu 2000, reprezentand distanta maxima in pixeli pe harta
         float distanceFromPl2Pl = 5000.0f;   /// Distanta de la jucatorul cu mingea la jucatorul destinatie. Initializat cu 5000 ce reprezinta
@@ -340,7 +386,7 @@ public class PlayerCity extends Character
         int mx=0, my=0;                      /// Reprezinta
         int aux=-1;   ///// voi avea nevoie de el pt functionalitatea WAIT->ReceiveBall la pase
         for(int j = 0; j< PlayState.NoPlayers; j++) {
-            if (x == Player[j].GetX() && y == Player[j].GetY()) {
+            if (ID == Player[j].GetID()) {
                 /// Daca jucatorul tinta este tot jucatorul curent, nu face nimic
             }
             else
@@ -457,6 +503,8 @@ public class PlayerCity extends Character
             Ball.actualizareY = Ball.actualizareY / framer;
 
         }
+        // dupa ce a fost data pasa, jucatorul nu ma este cel controlat de utilizator
+        behavior = "Wait";
     }
 
     private float DistanceFromPointToStraightLine(float xSrc, float ySrc, String dir, float x, float y)
@@ -468,6 +516,74 @@ public class PlayerCity extends Character
         float a=-m, b=1, c=m*xSrc-ySrc;
         return (float) (Math.abs(a*x+b*y+c) / Math.sqrt(a*a+b*b));
       //  return (float) (Math.abs( (xDest-xSrc)*(ySrc-y)-(xSrc-x)*(yDest-y) ) / (Math.sqrt( (xDest-xSrc)*((xDest-xSrc)+(yDest-ySrc)*(yDest-ySrc)) )));
+    }
+
+    // Se indreapta  jucatorul spre minge
+    private void ReceiveBall()
+    {
+        if (Math.abs(Ball.actualizareX) > Math.abs(Ball.actualizareY))
+        {
+            if(Ball.actualizareX > 0)
+                xMove = 1.5f;
+            else
+                xMove = -1.5f;
+            yMove = (Ball.actualizareY * xMove) / Ball.actualizareX;
+        }else
+        {
+            if(Ball.actualizareY > 0)
+                yMove = 1.5f;
+            else
+                yMove = -1.5f;
+            xMove = (Ball.actualizareX * yMove) / Ball.actualizareY;
+        }
+    }
+
+    /// Functie care va fi apelata cand utilizatorul va dori sa schimbe jucatorul controlat manual cu cel mai apropiat jucator de minge
+    private void SwitchPlayer()
+    {
+        int closest_player = -1;
+        int j = -1;
+        double shortest_distance = 5000.0f;
+        // Verificam daca un jucator are mingea pentru a il seta ca target
+        for(int i=0;i<NoPlayers;i++) {
+            if (Player[i].HasBall)
+                j = i;
+        }
+        //Daca niciun jucator nu are mingea, setam mingea ca target: Vom schimba pe cel mai apropiat jucator de minge atunci cand nu este in
+        // posesia unui fotbalist
+        if(j==-1)
+            for(int i=0;i<NoPlayers;i++){
+                if(Player[i].id_team == id_team) {
+                    if (ID == Player[i].GetID()) {
+                        /// Daca jucatorul tinta este tot jucatorul curent, nu face nimic
+                    }
+                    else if (Math.sqrt(Math.pow(ball.GetX() - Player[i].GetX(), 2) + Math.pow(ball.GetY() - Player[i].GetY(), 2)) < shortest_distance) {
+                            closest_player = i;
+                            shortest_distance = Math.sqrt(Math.pow(ball.GetX() - Player[i].GetX(), 2) + Math.pow(ball.GetY() - Player[i].GetY(), 2));
+                    }
+                }
+            }
+        else //Daca un jucator are mingea, il setam pe el ca target: Vom schimba pe cel mai apropiat jucator de adversarul care se afla in
+        // posesia mingii
+        {
+            for(int i=0;i<NoPlayers;i++){
+                if(Player[i].id_team == id_team) {
+                    if (ID == Player[i].GetID()) {
+                        /// Daca jucatorul tinta este tot jucatorul curent, nu face nimic
+                    }
+                    else if (Math.sqrt(Math.pow(Player[j].GetX() - Player[i].GetX(), 2) + Math.pow(Player[j].GetY() - Player[i].GetY(), 2)) < shortest_distance) {
+                        closest_player = i;
+                        shortest_distance = Math.sqrt(Math.pow(Player[j].GetX() - Player[i].GetX(), 2) + Math.pow(Player[j].GetY() - Player[i].GetY(), 2));
+                    }
+                }
+            }
+        }
+        System.out.println("Player schimbat inainte de press: "+ closest_player + Player[closest_player].behavior);
+        Player[closest_player].behavior = "Control Player";
+        System.out.println("Player schimbat dupa press: "+closest_player + Player[closest_player].behavior);
+        behavior = "Wait";
+        System.out.println(contor);
+        System.out.println(shortest_distance);
     }
 
     /////////////////////////////////////////////////////
