@@ -85,13 +85,15 @@ import static FootballGame.States.PlayState.*;
             /// Daca un jucator intercepteaza mingea, stabilim comportamentul dupa caz
             if(ball.GetX() <= GetX() && (GetX() <= ball.GetX()+48) && (ball.GetY() <= GetY()+24) && (GetY()+24 <=ball.GetY()+48))
             {
+                //behavior = "Control Player";
                 HasBall = true;
                 ball.setDirection(false);
                 for(int i=0;i<NoPlayers;i++)
                     if(Player[i].behavior == "Receive Ball"){
                         Player[i].behavior = "Wait";
-                        if(flag!=1)
+                        if(flag==1)
                             Player[i].behavior = "Control Player";
+
                     }
             }
             if(behavior == "Receive Ball")
@@ -112,13 +114,37 @@ import static FootballGame.States.PlayState.*;
                             GetInput();
                             ///Actualizeaza pozitia
                             Move();
-                        }else       // Daca nu este jucatorul controlat de utilizator, va actiona singur
+                        } else       // Daca nu este jucatorul controlat de utilizator, va actiona singur
                         {
                             if (status == "attacking") {
 
                             }
                             if (status == "defending") {
-
+                                if (behavior == "Chase Ball") {
+                                    for (int j = 0; j < PlayState.NoPlayers; j++)
+                                        if (Player[j].HasBall)
+                                            if (Math.abs(Player[j].GetX() - x) > Math.abs(Player[j].GetY() - y)) {
+                                                if (Player[j].GetX() > x)
+                                                    xMove = 2.1f;
+                                                else
+                                                    xMove = -2.1f;
+                                                if (Player[j].GetY() > y || xMove < 0)
+                                                    yMove = (Math.abs(Player[j].GetY() - y) * xMove) / Math.abs(Player[j].GetX() - x);
+                                                else
+                                                    yMove = -(Math.abs(Player[j].GetY() - y) * xMove) / Math.abs(Player[j].GetX() - x);
+                                            } else {
+                                                if (Player[j].GetY() > y)
+                                                    yMove = 2.1f;
+                                                else
+                                                    yMove = -2.1f;
+                                                if (Player[j].GetX() > x || yMove < 0)
+                                                    xMove = (Math.abs(Player[j].GetX() - x) * yMove) / Math.abs(Player[j].GetY() - y);
+                                                else
+                                                    xMove = -(Math.abs(Player[j].GetX() - x) * yMove) / Math.abs(Player[j].GetY() - y);
+                                            }
+                                    x += xMove;
+                                    y += yMove;
+                                }
                             }
                         }
                         //Daca jucatorul este in posesia mingii, utilizatorul ii controleaza toate actiunile
@@ -278,17 +304,75 @@ import static FootballGame.States.PlayState.*;
 
                     }
                 }//Daca jucatorul este al echipei oaspete, cea controlata in totalitate de CPU, executa instructiunile primite
-                else if(flag==2)
-                {
-                    if (status == "attacking") {
-
+                else if (flag == 2) {
+                    if (!HasBall) {
+                        if (behavior == "Chase Ball") {
+                            for (int j = 0; j < PlayState.NoPlayers; j++)
+                                if (Player[j].HasBall) {
+                                    if (Math.abs(Player[j].GetX() - x) > Math.abs(Player[j].GetY() - y)) {
+                                        if (Player[j].GetX() > x)
+                                            xMove = 2.1f;
+                                        else
+                                            xMove = -2.1f;
+                                        if (Player[j].GetY() > y || xMove < 0)
+                                            yMove = (Math.abs(Player[j].GetY() - y) * xMove) / Math.abs(Player[j].GetX() - x);
+                                        else
+                                            yMove = -(Math.abs(Player[j].GetY() - y) * xMove) / Math.abs(Player[j].GetX() - x);
+                                    } else {
+                                        if (Player[j].GetY() > y)
+                                            yMove = 2.1f;
+                                        else
+                                            yMove = -2.1f;
+                                        if (Player[j].GetX() > x || yMove < 0)
+                                            xMove = (Math.abs(Player[j].GetX() - x) * yMove) / Math.abs(Player[j].GetY() - y);
+                                        else
+                                            xMove = -(Math.abs(Player[j].GetX() - x) * yMove) / Math.abs(Player[j].GetY() - y);
+                                    }
+                                    if ((Player[j].GetX() <= x) && (x <= Player[j].GetX() + 48) && (Player[j].GetY() <= y + 24) && (y + 24 <= Player[j].GetY() + 48)) {
+                                        behavior = "Control Player";
+                                        HasBall = true;
+                                        Player[j].HasBall = false;
+                                        ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
+                                        ///////// Setez animatia pentru tackling //////////////////////////////////////////////////////////////////////////
+                                    }
+                                }
+                            x += xMove;
+                            y += yMove;
+                        }
+                        if (behavior == "Support Attacker") {
+                            for (int i = 0; i < PlayState.NoPlayers; i++)
+                                if (Player[i].HasBall) {
+                                    // Setez pozitia tinta a jucatorului unde se va deplasa
+                                    TargetPosition(false, Player[i].GetX(), Player[i].GetY());
+                                }
+                            //Actualizam Pozitia jucatorului
+                            x += xMove;
+                            y += yMove;
+                        }
+                        if (behavior == "Mark Support Attacker") {
+                            for (int i = 0; i < PlayState.NoPlayers; i++)
+                                if (Player[i].behavior == "Support Attacker") {
+                                    // Daca adversarul targetat are si mingea, aparatorul il va ataca, daca nu, doar il va marca
+                                    if (Player[i].HasBall) {
+                                        TargetPositionDefender(false, Player[i].GetX(), Player[i].GetY(), true);
+                                        //Daca in urma apelarii functiei anterioare, jucatorul intra in posesia mingii, ajustez starea adversarului
+                                        if (HasBall)
+                                            Player[i].HasBall = false;
+                                    } else
+                                        TargetPositionDefender(false, Player[i].GetX(), Player[i].GetY(), false);
+                                }
+                            //Actualizam Pozitia jucatorului
+                            x += xMove;
+                            y += yMove;
+                        }
                     }
-                    if (status == "defending") {
+                    else
+                    {
 
                     }
                 }
-
             }
+
             else
             {      /// Actualizez animatiile pentru fiecare situatie
                 fanion--;
@@ -514,6 +598,116 @@ import static FootballGame.States.PlayState.*;
                 xMove = (Ball.actualizareX * yMove) / Ball.actualizareY;
             }
         }
+        private void TargetPosition(boolean HomeTeam, float xTeamMate, float yTeamMate)
+        {
+            float targetX, targetY, xGoal, yGoal = 440.0f;
+
+            // Setam poarta si coordonatele la care va ataca jucatorul in fucntie daca este la echipa gazda sau nu
+            if(!HomeTeam) {
+                xGoal = 150.0f; /////////////////////////////////////////////////////////// de revenit
+                // Daca jumatatea dintre coleg si poarta este prea apropiata de cea din urma, se va opri la limita impusa
+                if((xTeamMate + xGoal)/2 < xGoal + 300.0f)
+                    targetX = xGoal + 300.0f;
+                    // Daca jumatatea dintre coleg si poarta este prea departata de cea din urma, se va opri la limita impusa
+                else if((xTeamMate + xGoal)/2 > xGoal + 850.0f)
+                    targetX = xGoal + 850.0f;
+                    // Altfel, targetul va fi chiar jumatatea distantei dintre coepichier si poarta
+                else
+                    targetX = (xTeamMate + xGoal)/2;
+            }
+            else {
+                xGoal = 1800.0f;/////////////////////////////////////////////////////////// de revenit
+                // Daca jumatatea dintre coleg si poarta este prea apropiata de cea din urma, se va opri la limita impusa
+                if((xTeamMate + xGoal)/2 > xGoal - 300.0f)
+                    targetX = xGoal - 300.0f;
+                    // Daca jumatatea dintre coleg si poarta este prea departata de cea din urma, se va opri la limita impusa
+                else if((xTeamMate + xGoal)/2 < xGoal - 850.0f)
+                    targetX = xGoal - 850.0f;
+                    // Altfel, targetul va fi chiar jumatatea distantei dintre coepichier si poarta
+                else
+                    targetX = (xTeamMate + xGoal)/2;
+            }
+
+            // Daca jumatatea dintre coleg si poarta este prea departata de cea din urma, se va opri la limita inferioara impusa
+            if((yTeamMate + yGoal)/2 > yGoal + 150.0f)
+                targetY = yGoal + 150.0f;
+                // Daca jumatatea dintre coleg si poarta este prea departata de cea din urma, se va opri la limita inferioara impusa
+            else if((yTeamMate + yGoal)/2 < yGoal - 150.0f)
+                targetY = yGoal - 150.0f;
+                // Altfel, targetul va fi chiar jumatatea distantei dintre coepichier si poarta
+            else
+                targetY = (yTeamMate + yGoal)/2;
+
+
+            //Acum ca avem setate coordonatele target X si Y, actualizam xMove si yMove daca este cazul
+            //Ajustam viteza maxima pt yMove si xMove
+            if(Math.abs(x-targetX) > Math.abs(y-targetY)){
+                if(x < targetX)
+                    xMove = 2.1f;
+                else
+                    xMove = -2.1f;
+                yMove = ((targetY-y) * xMove)/(targetX-x);
+            }
+            else{
+                if(y < targetY)
+                    yMove = 2.1f;
+                else
+                    yMove = -2.1f;
+                xMove = ((targetX-x) * yMove)/(targetY-y);
+            }
+
+            if(Math.abs(x-targetX) < 3.0f)
+                xMove = 0.0f;
+            if(Math.abs(y-targetY) < 3.0f)
+                yMove = 0.0f;
+
+        }
+
+        private void TargetPositionDefender(boolean HomeTeam, float xOpponent, float yOpponent, boolean TargetOponentHasBall)
+        {
+            float targetX, targetY;
+
+            // In functie de echipa gazda sau nu, setam pozitia aparatorului in spatele atacantului
+            if(HomeTeam)
+                targetX = xOpponent - 85.0f;
+            else
+                targetX = xOpponent + 85.0f;
+            targetY = yOpponent; // Aparatorul va fi pe aceeasi linie cu atacantul advers
+
+            // Daca adversarul in marcaj primeste mingea, fundasul il ataca
+            if(TargetOponentHasBall) {
+                targetX = xOpponent;
+                if((xOpponent <= x) && (x <= xOpponent + 48) && (yOpponent <= y + 24) && (y+24 <= yOpponent + 48)) {
+                    HasBall = true;
+                    ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
+                    ///////// Setez animatia pentru tackling //////////////////////////////////////////////////////////////////////////
+                }
+            }
+
+            //Acum ca avem setate coordonatele target X si Y, actualizam xMove si yMove daca este cazul
+            //Ajustam viteza maxima pt yMove si xMove
+            if(Math.abs(x-targetX) > Math.abs(y-targetY)){
+                if(x < targetX)
+                    xMove = 2.1f;
+                else
+                    xMove = -2.1f;
+                yMove = ((targetY-y) * xMove)/(targetX-x);
+            }
+            else{
+                if(y < targetY)
+                    yMove = 2.1f;
+                else
+                    yMove = -2.1f;
+                xMove = ((targetX-x) * yMove)/(targetY-y);
+            }
+
+            ///  Daca jucatorul a ajuns in pozitia target, ramane acolo si nu avanseaza
+            if(Math.abs(x-targetX) < 3.0f)
+                xMove = 0.0f;
+            if(Math.abs(y-targetY) < 3.0f)
+                yMove = 0.0f;
+
+        }
 
         /////////////////////////////////////////////////////
         public BufferedImage GetImage(){return image;}
@@ -530,8 +724,8 @@ import static FootballGame.States.PlayState.*;
             g.drawImage(image, (int)x, (int)y, width, height, null);
 
             ///doar pentru debug daca se doreste vizualizarea dreptunghiului de coliziune altfel se vor comenta urmatoarele doua linii
-            //g.setColor(Color.blue);
-            //g.fillRect((int)(x + bounds.x), (int)(y + bounds.y), bounds.width, bounds.height);
+            g.setColor(Color.blue);
+            g.fillRect((int)(x + bounds.x), (int)(y + bounds.y), bounds.width, bounds.height);
         }
     }
 

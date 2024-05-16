@@ -18,10 +18,11 @@ public abstract class Character extends Item
     protected float speed;  /*!< Retine viteza de deplasare caracterului.*/
     protected float xMove;  /*!< Retine noua pozitie a caracterului pe axa X.*/
     protected float yMove;  /*!< Retine noua pozitie a caracterului pe axa Y.*/
-    protected boolean change; /*!< Fanion care atentioneaza cand viata caracterului sufera modificari.*/
     public byte id_team;     /*!< Retine id-ul specific echipei jucatorului */
     public String behavior;     /*!< Retine comportamentul jucatorului in functie de situatiile din teren. */
     public byte ID;     /*!< Retine id-ul specific fiecarui jucator */
+    public float homeRegionX;
+    public float homeRegionY;
 
     /*! \fn public Character(RefLinks refLink, float x, float y, int width, int height)
         \brief Constructor de initializare al clasei Character

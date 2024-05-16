@@ -15,13 +15,14 @@ import java.awt.*;
 public class  PlayState extends State
 {
     public static PlayerCity speed;/*!< Referinta catre obiectul animat erou (controlat de utilizator).*/
-    public static final int NoPlayers = 6;
+    public static final int NoPlayers = 12;
     private Map map = null;     /*!< Referinta catre harta curenta.*/
     public static Ball ball;    /*!< Referinta catre obiectul minge.*/
     public static Character[] Player = new Character[NoPlayers];
     public static float camX, camY; //coordonatele camerei de filmat
     private CursorPoint cursor;
     public static double contor;
+    public static ControlCenter controlCenter;
 
     /*! \fn public PlayState(RefLinks refLink)
         \brief Constructorul de initializare al clasei
@@ -36,21 +37,18 @@ public class  PlayState extends State
         map = new ManCityMap(refLink);
             ///Referinta catre harta construita este setata si in obiectul shortcut pentru a fi accesibila si in alte clase ale programului.
         refLink.SetMap(map);
-        Player[0] = new PlayerCity(refLink,Map.width / 2,Map.height / 2, (byte) 0);
-        Player[1] = new PlayerCity(refLink,672,78, (byte) 1);
-        Player[2] = new PlayerCity(refLink,972,500, (byte) 2);
-        Player[3] = new PlayerCity(refLink,750,178, (byte) 3);
-        Player[4] = new PlayerArsenal(refLink,750,500, (byte) 4);
-        Player[5] = new PlayerArsenal(refLink,750,900, (byte) 5);
+
+        PlayerCity.flag = 1;  // astea se stabilesc in MenuState /////////////////////////////////////////////////
+        PlayerArsenal.flag = 2;
+
+        controlCenter = new ControlCenter(refLink, Player);
+
         ball = new Ball(refLink,-48,-48,false,false);
-        Player[0].HasBall = true;
-        Player[0].behavior = "Control Player";
+
         cursor = new CursorPoint(refLink,Player[0].GetX(),Player[0].GetY());
         camX = -(Map.width - 1536) >> 1;
         camY = -(Map.height - 768) >> 1;
 
-        PlayerCity.flag = 1;
-        PlayerArsenal.flag = 2;
         contor = 0;
     }
 
@@ -68,9 +66,9 @@ public class  PlayState extends State
 
         map.Update();
         ball.Update();
+        controlCenter.Update();
         for(int j=0;j<NoPlayers;j++) {
             Player[j].Update();
-            //System.out.println(j+" "+Player[j].behavior);
         }
         cursor.Update();
         contor ++;
