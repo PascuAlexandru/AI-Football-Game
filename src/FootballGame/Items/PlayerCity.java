@@ -856,5 +856,6 @@ public class PlayerCity extends Character
         ///doar pentru debug daca se doreste vizualizarea dreptunghiului de coliziune altfel se vor comenta urmatoarele doua linii
         //g.setColor(Color.blue);
         //g.fillRect((int)(x + bounds.x), (int)(y + bounds.y), bounds.width, bounds.height);
+        //pentru Debug al echipei adverse
     }
 }
