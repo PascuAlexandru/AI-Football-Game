@@ -1,6 +1,5 @@
 package FootballGame.States;
 
-import FootballGame.Items.PlayerCity;
 import FootballGame.Maps.Menu;
 import FootballGame.RefLinks;
 
@@ -12,7 +11,6 @@ import java.awt.*;
 public class MenuState extends State
 {
    private Menu map;
-    public static PlayerCity P;
 
     /*! \fn public MenuState(RefLinks refLink)
         \brief Constructorul de initializare al clasei.
@@ -23,15 +21,12 @@ public class MenuState extends State
     {
         super(refLink);
         map = new Menu(refLink);
-        P = new PlayerCity(refLink,300,300);
-        P.HasBall=true;
     }
 
     @Override
     public void Update()
     {
         map.Update();
-        P.Update();
     }
 
     /*! \fn public void Draw(Graphics g)
@@ -43,6 +38,5 @@ public class MenuState extends State
     public void Draw(Graphics g)
     {
         map.Draw(g);
-        P.Draw(g);
     }
 }

@@ -15,12 +15,14 @@ import java.awt.*;
 public class  PlayState extends State
 {
     public static PlayerCity speed;/*!< Referinta catre obiectul animat erou (controlat de utilizator).*/
-    public static final int NoPlayers = 4;
+    public static final int NoPlayers = 12;
     private Map map = null;     /*!< Referinta catre harta curenta.*/
     public static Ball ball;    /*!< Referinta catre obiectul minge.*/
     public static Character[] Player = new Character[NoPlayers];
-    public static float camX, camY;
+    public static float camX, camY; //coordonatele camerei de filmat
     private CursorPoint cursor;
+    public static double contor;
+    public static ControlCenter controlCenter;
 
     /*! \fn public PlayState(RefLinks refLink)
         \brief Constructorul de initializare al clasei
@@ -35,17 +37,19 @@ public class  PlayState extends State
         map = new ManCityMap(refLink);
             ///Referinta catre harta construita este setata si in obiectul shortcut pentru a fi accesibila si in alte clase ale programului.
         refLink.SetMap(map);
-        Player[0] = new PlayerCity(refLink,Map.width / 2,Map.height / 2);
-        Player[1] = new PlayerCity(refLink,672,78);
-        Player[2] = new PlayerCity(refLink,972,500);
-        Player[3] = new PlayerCity(refLink,750,178);
+
+        PlayerCity.flag = 1;  // astea se stabilesc in MenuState /////////////////////////////////////////////////
+        PlayerArsenal.flag = 2;
+
+        controlCenter = new ControlCenter(refLink, Player);
+
         ball = new Ball(refLink,-48,-48,false,false);
-        Player[0].HasBall = true;
+
         cursor = new CursorPoint(refLink,Player[0].GetX(),Player[0].GetY());
         camX = -(Map.width - 1536) >> 1;
         camY = -(Map.height - 768) >> 1;
 
-        PlayerCity.flag = 1;
+        contor = 0;
     }
 
 
@@ -62,9 +66,12 @@ public class  PlayState extends State
 
         map.Update();
         ball.Update();
-        for(int j=0;j<NoPlayers;j++)
+        controlCenter.Update();
+        for(int j=0;j<NoPlayers;j++) {
             Player[j].Update();
+        }
         cursor.Update();
+        contor ++;
     }
 
     /*! \fn public void Draw(Graphics g)

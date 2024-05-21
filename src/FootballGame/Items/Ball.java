@@ -53,11 +53,6 @@ public class Ball extends Item {
         {
             x = x + actualizareX;
             y = y + actualizareY;
-            System.out.println(camX);
-          /* if(-camX > 5 || -camX > Tile.TILE_WIDTH * Map.BigMapWidth -1536 -5 || -camY > 5 || -camY < (Tile.TILE_HEIGHT * Map.BigMapHeight -768) - 5){
-                camX -= actualizareX;
-                camY -= actualizareY;
-            }*/
 
           /// Daca mingea inainteaza pe directia NE, ajustam camera
            if(x > lastX  && y < lastY )
@@ -145,6 +140,10 @@ public class Ball extends Item {
 
     public void setDirection(boolean direction) {
         this.direction = direction;
+    }
+
+    public boolean GetDirection() {
+        return direction;
     }
 
 

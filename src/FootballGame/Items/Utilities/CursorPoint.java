@@ -48,6 +48,9 @@ public class CursorPoint extends Item {
                 }else if(Player[i].behavior == "Receive Ball"){
                     x = Player[i].GetX();
                     y = Player[i].GetY() - height;
+                }else if(Player[i].behavior == "Control Player"){
+                    x = Player[i].GetX();
+                    y = Player[i].GetY() - height;
                 }
 
         }

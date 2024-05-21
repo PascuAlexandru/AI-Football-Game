@@ -21,7 +21,7 @@ public class KeyManager implements KeyListener
     public boolean pass;    /*!< Flag pentru tasta "X" apasata.*/
     public boolean shoot;   /*!< Flag pentru tasta "D" apasata.*/
     public boolean tackle;  /*!< Flag pentru tasta "A" apasata.*/
-    public boolean sprint;   /*!< Flag pentru tasta "E" apasata.*/
+    public boolean switchPlayer;   /*!< Flag pentru tasta "E" apasata.*/
 
 
     public boolean enter;   /*!< Flag pentru tasta "Enter" apasata.*/
@@ -48,7 +48,7 @@ public class KeyManager implements KeyListener
         pass  = keys[KeyEvent.VK_X];
         shoot = keys[KeyEvent.VK_D];
         tackle  = keys[KeyEvent.VK_A];
-        sprint = keys[KeyEvent.VK_E];
+        switchPlayer = keys[KeyEvent.VK_Q];
 
         enter = keys[KeyEvent.VK_ENTER];
         esc = keys[KeyEvent.VK_ESCAPE];
@@ -85,6 +85,6 @@ public class KeyManager implements KeyListener
     @Override
     public void keyTyped(KeyEvent e)
     {
-
+        keys[e.getKeyCode()] = true;
     }
 }
