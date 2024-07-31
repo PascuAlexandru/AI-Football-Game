@@ -113,7 +113,7 @@ public class Game implements Runnable
         playState       = new PlayState(refLink);
         menuState       = new MenuState(refLink);
             ///Seteaza starea implicita cu care va fi lansat programul in executie
-        State.SetState(menuState);
+        State.SetState(playState);
     }
 
     /*! \fn public void run()

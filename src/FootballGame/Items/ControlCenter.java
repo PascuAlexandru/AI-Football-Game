@@ -7,7 +7,7 @@ import static FootballGame.States.PlayState.Player;
 
 public class ControlCenter {
     protected RefLinks refLink; /*!< O referinte catre un obiect "shortcut", obiect ce contine o serie de referinte utile in program.*/
-    public int NoOfChaseBallers;
+    public static int NoOfChaseBallers;
     public static boolean change;
 
     public ControlCenter(RefLinks refLink, Character[] Player)
@@ -48,9 +48,9 @@ public class ControlCenter {
             PlayerArsenal.status = "defending";
             Player[6] = new PlayerArsenal(refLink, 456,698, (byte) 6);
             Player[7] = new PlayerArsenal(refLink,272,78, (byte) 7);
-            Player[8] = new PlayerArsenal(refLink,272,500, (byte) 8);
+            Player[8] = new PlayerArsenal(refLink,1372,200, (byte) 8);
             Player[9] = new PlayerArsenal(refLink,350,178, (byte) 9);
-            Player[10] = new PlayerArsenal(refLink,315,600, (byte) 10);
+            Player[10] = new PlayerArsenal(refLink,1315,600, (byte) 10);
             Player[11] = new PlayerArsenal(refLink,187,878, (byte) 11);
         }
 
@@ -65,7 +65,8 @@ public class ControlCenter {
         Player[4].behavior = "Support Attacker";
 
         Player[7].behavior = "Chase Ball";
-        Player[8].behavior = "Chase Ball";
+        Player[10].behavior = "Link Up Player";
+        Player[8].HasBall = true;
 
     }
 
@@ -77,9 +78,9 @@ public class ControlCenter {
             ///////////////////////////////////////////////////////////////////////////////////
         }
 
-        System.out.println("Chase ball: "+Player[7].GetXMove() + ", " + Player[7].GetYMove());
+        //System.out.println("Chase ball: "+Player[7].GetXMove() + ", " + Player[7].GetYMove());
 
-        System.out.println("Link Up ball: "+Player[2].GetX() + ", " + Player[2].GetY());
+        //System.out.println("Link Up ball: "+Player[2].GetX() + ", " + Player[2].GetY());
 
     }
 }

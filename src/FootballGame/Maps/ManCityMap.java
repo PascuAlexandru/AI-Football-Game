@@ -15,5 +15,4 @@ public class ManCityMap extends Map {
     public ManCityMap(RefLinks refLink) {
         super(refLink);
     }
-
 }

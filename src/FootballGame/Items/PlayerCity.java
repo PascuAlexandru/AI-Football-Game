@@ -151,9 +151,9 @@ public class PlayerCity extends Character
                                             else
                                                 xMove = -2.1f;
                                             if(Player[j].GetY() > y || xMove < 0)
-                                                yMove = (Math.abs(Player[j].GetY()-y) * xMove) / Math.abs(Player[j].GetX()-x);
+                                                yMove = (Math.abs(Player[j].GetY()-y) * xMove) / (Math.abs(Player[j].GetX()-x)+0.1f);
                                             else
-                                                yMove = -(Math.abs(Player[j].GetY()-y) * xMove) / Math.abs(Player[j].GetX()-x);
+                                                yMove = -(Math.abs(Player[j].GetY()-y) * xMove) / (Math.abs(Player[j].GetX()-x)+0.1f);
                                         }else
                                         {
                                             if(Player[j].GetY() > y)
@@ -161,9 +161,9 @@ public class PlayerCity extends Character
                                             else
                                                 yMove = -2.1f;
                                             if(Player[j].GetX() > x || yMove < 0)
-                                                xMove = (Math.abs(Player[j].GetX()-x) * yMove) / Math.abs(Player[j].GetY()-y);
+                                                xMove = (Math.abs(Player[j].GetX()-x) * yMove) / (Math.abs(Player[j].GetY()-y)+0.1f);
                                             else
-                                                xMove = -(Math.abs(Player[j].GetX()-x) * yMove) / Math.abs(Player[j].GetY()-y);
+                                                xMove = -(Math.abs(Player[j].GetX()-x) * yMove) / (Math.abs(Player[j].GetY()-y)+0.1f);
                                         }
                                         if((Player[j].GetX() <= x) && (x <= Player[j].GetX() + 48) && (Player[j].GetY() <= y + 24) && (y+24 <= Player[j].GetY() + 48)) {
                                             HasBall = true;
@@ -183,14 +183,14 @@ public class PlayerCity extends Character
                                             if (Player[j].HasBall)
                                                 if (Math.abs(Player[i].GetXMove()) < Math.abs(Player[i].GetYMove())) {
                                                     if (y > Player[j].GetY())
-                                                        y += Player[i].GetYMove()/3;
-                                                    x -= Player[i].GetXMove()/3;
-                                                    System.out.println(Player[i].GetXMove() + "," + Player[i].GetYMove());
+                                                        y += Player[i].GetYMove()/2; //NoOFChasePlayers
+                                                    x -= Player[i].GetXMove()/2; //NoOFChasePlayers
+                                                    //System.out.println(Player[i].GetXMove() + "," + Player[i].GetYMove());
                                                 } else {
                                                 if (x > Player[j].GetX())
-                                                    x += Player[i].GetXMove()/3;
-                                                y -= Player[i].GetYMove()/3;
-                                                 System.out.println(Player[i].GetXMove()+","+Player[i].GetYMove());
+                                                    x += Player[i].GetXMove()/2; //NoOFChasePlayers
+                                                y -= Player[i].GetYMove()/2; //NoOFChasePlayers
+                                                 //System.out.println(Player[i].GetXMove()+","+Player[i].GetYMove());
                                             }
 
 
@@ -425,28 +425,29 @@ public class PlayerCity extends Character
                 {
                     for(int j = 0; j< PlayState.NoPlayers; j++)
                         if(Player[j].HasBall){
-                            if (Math.abs(Player[j].GetX()-x) > Math.abs(Player[j].GetY()-y))
-                            {
-                                if(Player[j].GetX() > x)
+                            if (Math.abs(Player[j].GetX() - x) > Math.abs(Player[j].GetY() - y)) {
+                                if (Player[j].GetX() > x)
                                     xMove = 2.1f;
                                 else
                                     xMove = -2.1f;
-                                if(Player[j].GetY() > y || xMove < 0)
-                                    yMove = (Math.abs(Player[j].GetY()-y) * xMove) / Math.abs(Player[j].GetX()-x);
+                                if (Player[j].GetY() > y || xMove < 0)
+                                    yMove = (Math.abs(Player[j].GetY() - y) * xMove) / (Math.abs(Player[j].GetX() - x)+0.1f);
                                 else
-                                    yMove = -(Math.abs(Player[j].GetY()-y) * xMove) / Math.abs(Player[j].GetX()-x);
-                            }else
-                            {
-                                if(Player[j].GetY() > y)
+                                    yMove = -(Math.abs(Player[j].GetY() - y) * xMove) / (Math.abs(Player[j].GetX() - x)+0.1f);
+                            } else {
+                                if (Player[j].GetY() > y)
                                     yMove = 2.1f;
                                 else
                                     yMove = -2.1f;
-                                if(Player[j].GetX() > x || yMove < 0)
-                                    xMove = (Math.abs(Player[j].GetX()-x) * yMove) / Math.abs(Player[j].GetY()-y);
-                                else
-                                    xMove = -(Math.abs(Player[j].GetX()-x) * yMove) / Math.abs(Player[j].GetY()-y);
+                                if (Player[j].GetX() > x || yMove < 0){
+                                    xMove = (Math.abs(Player[j].GetX() - x) * yMove) / (Math.abs(Player[j].GetY() - y)+0.1f);
+                                }
+                                else {
+                                    xMove = -(Math.abs(Player[j].GetX() - x) * yMove) / (Math.abs(Player[j].GetY() - y)+0.1f);
+                                }
                             }
-                            if((Player[j].GetX() <= x) && (x <= Player[j].GetX() + 48) && (Player[j].GetY() <= y + 24) && (y+24 <= Player[j].GetY() + 48)) {
+                            if ((Player[j].GetX() <= x) && (x <= Player[j].GetX() + 48) && (Player[j].GetY() <= y + 24) && (y + 24 <= Player[j].GetY() + 48)) {
+                                behavior = "Control Player";
                                 HasBall = true;
                                 Player[j].HasBall = false;
                                 ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
@@ -457,8 +458,31 @@ public class PlayerCity extends Character
                     x+=xMove;
                     y+=yMove;
                 }
+                if (behavior == "Support Attacker") {
+                    for (int i = 0; i < PlayState.NoPlayers; i++)
+                        if (Player[i].HasBall) {
+                            // Setez pozitia tinta a jucatorului unde se va deplasa
+                            TargetPositionAttacker(false, Player[i].GetX(), Player[i].GetY());
+                        }
+                    //Actualizam Pozitia jucatorului
+                    x += xMove;
+                    y += yMove;
+                }
+                if (behavior == "Mark Support Attacker") {
+                    for (int i = 0; i < PlayState.NoPlayers; i++)
+                        if (Player[i].behavior == "Support Attacker") {
+                            TargetPositionDefender(false, Player[i].GetX(), Player[i].GetY());
+                        }
+                    //Actualizam Pozitia jucatorului
+                    x += xMove;
+                    y += yMove;
+                }
+            }
+            else
+            {
 
             }
+
 
         }
         else
