@@ -2,6 +2,8 @@ package FootballGame.Items;
 
 import FootballGame.RefLinks;
 
+import static FootballGame.States.PlayState.ball;
+
 /*! \class public abstract class Character extends Item
     \brief Defineste notiunea abstracta de caracter/individ/fiinta din joc.
 
@@ -23,6 +25,9 @@ public abstract class Character extends Item
     public byte ID;     /*!< Retine id-ul specific fiecarui jucator */
     public float homeRegionX;
     public float homeRegionY;
+    public int haveBeenTakled = 0;
+    public boolean Gk;
+    protected int pressingContor;
 
     /*! \fn public Character(RefLinks refLink, float x, float y, int width, int height)
         \brief Constructor de initializare al clasei Character
@@ -41,6 +46,7 @@ public abstract class Character extends Item
         speed   = DEFAULT_SPEED;
         xMove   = 0;
         yMove   = 0;
+        pressingContor = 0;
     }
 
     /*! \fn public void Move()
@@ -80,7 +86,29 @@ public abstract class Character extends Item
         return speed;
     }
 
-
+    protected void AttackBall(){
+        if (Math.abs(ball.GetX() - x) > Math.abs(ball.GetY() - y)) {
+            if (ball.GetX() > x)
+                xMove = 1.5f;
+            else
+                xMove = -1.5f;
+            if (ball.GetY() > y)// || xMove < 0)
+                yMove = (Math.abs(ball.GetY() - y) * Math.abs(xMove)) / (Math.abs(ball.GetX() - x));
+            else
+                yMove = -(Math.abs(ball.GetY() - y) * Math.abs(xMove)) / (Math.abs(ball.GetX() - x));
+        } else {
+            if (ball.GetY() > y)
+                yMove = 1.5f;
+            else
+                yMove = -1.5f;
+            if (ball.GetX() > x)// || yMove < 0)
+                xMove = (Math.abs(ball.GetX() - x) * Math.abs(yMove)) / (Math.abs(ball.GetY() - y));
+            else
+                xMove = -(Math.abs(ball.GetX() - x) * Math.abs(yMove)) / (Math.abs(ball.GetY() - y));
+        }
+        x += xMove;
+        y += yMove;
+    }
 
     /*! \fn public void SetSpeed(float speed)
         \brief Seteaza viteza cu care se va deplasa caracterul.
@@ -129,5 +157,11 @@ public abstract class Character extends Item
     {
         this.yMove = yMove;
     }
+
+    public void SetPressing(int cnt)
+    {
+        pressingContor = cnt;
+    }
+
 }
 

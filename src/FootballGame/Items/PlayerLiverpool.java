@@ -27,7 +27,7 @@ import static FootballGame.States.PlayState.*;
         atacul (nu este implementat momentan)
         dreptunghiul de coliziune
  */
-public class PlayerArsenal extends Character
+public class PlayerLiverpool extends Character
 {
     private BufferedImage image;    /*!< Referinta catre imaginea curenta a eroului.*/
     private int fanion;
@@ -44,15 +44,15 @@ public class PlayerArsenal extends Character
         \param x Pozitia initiala pe axa X a eroului.
         \param y Pozitia initiala pe axa Y a eroului.
      */
-    public PlayerArsenal(RefLinks refLink, float x, float y, byte id, boolean GK)
+    public PlayerLiverpool(RefLinks refLink, float x, float y, byte id, boolean GK)
     {
         ///Apel al constructorului clasei de baza
         super(refLink, x,y, Character.DEFAULT_CREATURE_WIDTH, Character.DEFAULT_CREATURE_HEIGHT);
         ///Seteaza imaginea de start a eroului
         image = Assets.heroRight4;
-        id_team = 2;
-        attackStrategy = "Possession Game";
-        defenceStrategy = "Conservative";
+        id_team = 4;
+        attackStrategy = "Counter Attack";
+        defenceStrategy = "Aggressive";
         ID = id;
         Gk = GK;
         havePassed = 0;
@@ -120,7 +120,7 @@ public class PlayerArsenal extends Character
                             /// Daca este echipa controlata de utilizator, primeste drepturi depline de control
                             if((Player[i].id_team==1 && PlayerCity.flag == 1) || (Player[i].id_team==2 && PlayerArsenal.flag == 1))
                                 Player[i].behavior = "Control Player";
-                            }
+                        }
                     // Daca a interceptat o pasa de la echipa adversa, se vor schimba rolurile tactice
                     if (status == "defending")
                         ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
@@ -314,7 +314,7 @@ public class PlayerArsenal extends Character
                         }
                         //Daca jucatorul este in posesia mingii, utilizatorul ii controleaza toate actiunile
                     } else
-                        {
+                    {
                         ///Verifica daca a fost apasata o tasta
                         GetInput();
                         ///Actualizeaza pozitia

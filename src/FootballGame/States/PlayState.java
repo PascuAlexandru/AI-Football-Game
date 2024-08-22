@@ -15,13 +15,14 @@ import java.awt.*;
 public class  PlayState extends State
 {
     public static PlayerCity speed;/*!< Referinta catre obiectul animat erou (controlat de utilizator).*/
-    public static final int NoPlayers = 12;
+    public static final int NoPlayers = 14;
     private Map map = null;     /*!< Referinta catre harta curenta.*/
     public static Ball ball;    /*!< Referinta catre obiectul minge.*/
-    public static Character[] Player = new Character[NoPlayers];
+    public static Character[] Player = new Character[NoPlayers]; /*!< Referinta catre vector de jucatori >!*/
     public static float camX, camY; //coordonatele camerei de filmat
-    private CursorPoint cursor;
+    public static CursorPoint cursor;
     public static double contor;
+    public static int timePlayed;
     public static ControlCenter controlCenter;
 
     /*! \fn public PlayState(RefLinks refLink)
@@ -50,6 +51,7 @@ public class  PlayState extends State
         camY = -(Map.height - 768) >> 1;
 
         contor = 0;
+        timePlayed = 0;
     }
 
 
@@ -72,6 +74,7 @@ public class  PlayState extends State
         }
         cursor.Update();
         contor ++;
+        timePlayed = (int) (contor/100); // Consideram un minut de joc ca fiind 100 frameuri.
     }
 
     /*! \fn public void Draw(Graphics g)
@@ -89,5 +92,11 @@ public class  PlayState extends State
             Player[j].Draw(g);
         }
         cursor.Draw(g);
+        if(contor==1)
+            try {
+                Thread.sleep(1400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
     }
 }

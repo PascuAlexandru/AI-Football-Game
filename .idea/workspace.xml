@@ -2,16 +2,63 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f63f0bd-07c3-4259-ad3b-2a5ee33c327f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/FootballGame/Astar/AStar.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FootballGame/Astar/Node.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft21.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft22.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft23.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft24.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft25.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft26.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft27.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft28.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetLeft9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight21.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight22.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight23.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight24.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight25.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight26.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight27.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight28.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/GoalPost/GoalNetRight9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/FootballGame/Items/PlayerChelsea.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/FootballGame/Items/PlayerLiverpool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Graphics/Assets.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Graphics/Assets.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/Character.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/Character.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/PlayerCity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/PlayerCity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FootballGame/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/Utilities/CursorPoint.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/Utilities/CursorPoint.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/Utilities/GoalNet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/Utilities/GoalNet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Maps/Map.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Maps/Map.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/States/PlayState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/States/PlayState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FootballGame/Graphics/Assets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Graphics/Assets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FootballGame/Items/Character.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Items/Character.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FootballGame/Items/ControlCenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Items/ControlCenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FootballGame/Items/PlayerArsenal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Items/PlayerArsenal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FootballGame/Items/PlayerCity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Items/PlayerCity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FootballGame/Maps/ManCityMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Maps/ManCityMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FootballGame/Items/Utilities/CursorPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Items/Utilities/CursorPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FootballGame/Items/Utilities/GoalNet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Items/Utilities/GoalNet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FootballGame/Maps/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Maps/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FootballGame/States/PlayState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/States/PlayState.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,13 +86,16 @@
     <option name="CREATE_PULL_REQUEST_DEFAULT_REPO_NAME" value="AI-Football-Game" />
   </component>
   <component name="ProjectId" id="1atkHBzpcxjLDH6gtV6NncFNIwA" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/PaooGameEtapa1.iml" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -106,20 +156,45 @@
       <option name="project" value="LOCAL" />
       <updated>1716299318421</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Implemented A Star algorithm&#10;Fixed chasing balls bugs">
+      <created>1722458328629</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1722458328629</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_WIDTH">
+      <map>
+        <entry key="2" value="110" />
+        <entry key="3" value="147" />
+      </map>
+    </option>
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Added Team Arsenal &#10;Added switch player system" />
     <MESSAGE value="Added ControlCenter &#10;Added all behaviors" />
     <MESSAGE value="Commit message" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit message" />
+    <MESSAGE value="Implemented A Star algorithm&#10;Fixed chasing balls bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented A Star algorithm&#10;Fixed chasing balls bugs" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="318" y="0" key="CommitChangelistDialog2" timestamp="1716299315861">
+    <state x="318" y="0" key="CommitChangelistDialog2" timestamp="1724359312883">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="318" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1716299315861" />
+    <state x="318" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1724359312883" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1716299300274">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -128,22 +203,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="522" y="279" key="Github.CreatePullRequestDialog/0.0.1536.824@0.0.1536.824" timestamp="1716298735602" />
-    <state width="1493" height="206" key="GridCell.Tab.0.bottom" timestamp="1722458134464">
+    <state width="1493" height="225" key="GridCell.Tab.0.bottom" timestamp="1724353113252">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="206" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1722458134464" />
-    <state width="1493" height="206" key="GridCell.Tab.0.center" timestamp="1722458134463">
+    <state width="1493" height="225" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1724353113252" />
+    <state width="1493" height="225" key="GridCell.Tab.0.center" timestamp="1724353113252">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="206" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1722458134463" />
-    <state width="1493" height="206" key="GridCell.Tab.0.left" timestamp="1722458134463">
+    <state width="1493" height="225" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1724353113252" />
+    <state width="1493" height="225" key="GridCell.Tab.0.left" timestamp="1724353113252">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="206" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1722458134463" />
-    <state width="1493" height="206" key="GridCell.Tab.0.right" timestamp="1722458134463">
+    <state width="1493" height="225" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1724353113252" />
+    <state width="1493" height="225" key="GridCell.Tab.0.right" timestamp="1724353113252">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="206" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1722458134463" />
+    <state width="1493" height="225" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1724353113252" />
     <state width="1493" height="240" key="GridCell.Tab.1.bottom" timestamp="1719558623111">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -164,21 +239,21 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="ShowDiffWithBranchDialog/0.0.1536.824@0.0.1536.824" timestamp="1716298517117" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1716299365446">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1722458418420">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1716299365446" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1722458418420" />
     <state x="439" y="141" key="com.intellij.dvcs.ui.CompareBranchesDialog" timestamp="1716298651375">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="439" y="141" key="com.intellij.dvcs.ui.CompareBranchesDialog/0.0.1536.824@0.0.1536.824" timestamp="1716298651375" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1722446519678">
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1724347725980">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1722446519678" />
-    <state x="425" y="187" key="run.anything.popup" timestamp="1719557316110">
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1724347725980" />
+    <state x="425" y="187" key="run.anything.popup" timestamp="1722789777525">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1719557316110" />
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1722789777525" />
   </component>
 </project>
