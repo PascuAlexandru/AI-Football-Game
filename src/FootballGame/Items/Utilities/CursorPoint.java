@@ -39,21 +39,29 @@ public class CursorPoint extends Item {
             width=48;
             height = 48;}
 
+        boolean outOfPlay = true;
         for(int i=0;i<NoPlayers;i++)
         {
+            //Daca echipa Man City este cea folosita de utilizator, Cursorul va fi doar pe jucatorii acesteia
             if(Player[i].id_team == 1 && PlayerCity.flag==1)
                 if(Player[i].HasBall) {
                     x = Player[i].GetX();
                     y = Player[i].GetY() - height;
+                    outOfPlay = false;
                 }else if(Player[i].behavior == "Receive Ball"){
                     x = Player[i].GetX();
                     y = Player[i].GetY() - height;
+                    outOfPlay = false;
                 }else if(Player[i].behavior == "Control Player"){
                     x = Player[i].GetX();
                     y = Player[i].GetY() - height;
+                    outOfPlay = false;
                 }
-
         }
+        // Daca meciul este oprit sau mingea de joc nu este in teren, nu apare cursorul jucatorului curent
+        if(outOfPlay)
+            x = -1234.0f; // cursorul va avea pozitia in afara campului vizual
+
     }
 
     @Override
