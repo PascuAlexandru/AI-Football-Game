@@ -33,7 +33,6 @@ public class PlayerLiverpool extends Character
     private int fanion;
     public static String status;  /*!< Retine statusul echipei: defending or attacking  */
     public static byte flag = 0;
-    public int havePassed;
     public static String attackStrategy;
     public static String defenceStrategy;
 
@@ -49,13 +48,15 @@ public class PlayerLiverpool extends Character
         ///Apel al constructorului clasei de baza
         super(refLink, x,y, Character.DEFAULT_CREATURE_WIDTH, Character.DEFAULT_CREATURE_HEIGHT);
         ///Seteaza imaginea de start a eroului
-        image = Assets.heroRight4;
+        if(flag == 1)
+            image = Assets.liverpoolWait1;
+        else
+            image = Assets.liverpoolWait1;
         id_team = 4;
         attackStrategy = "Counter Attack";
         defenceStrategy = "Aggressive";
         ID = id;
         Gk = GK;
-        havePassed = 0;
         fanion = 0;
 
         homeRegionX = x;
@@ -108,23 +109,20 @@ public class PlayerLiverpool extends Character
 
             /// Daca un jucator intercepteaza mingea, stabilim comportamentul dupa caz
             if (ball.GetX() <= GetX()+width/2 && (GetX()+width/2 <= ball.GetX() + width) && (ball.GetY() <= GetY() + height/2) && (GetY() + height/2 <= ball.GetY() + height)) {
-                if (havePassed != 0) {
-                    havePassed--;
-                } else {
-                    HasBall = true;
-                    ball.setDirection(false);
-                    ///Schimbam comportamentul jucatorului care era destinat sa primeasca mingea
-                    for (int i = 0; i < NoPlayers; i++)
-                        if (Player[i].behavior == "Receive Ball") {
-                            Player[i].behavior = "Wait";
-                            /// Daca este echipa controlata de utilizator, primeste drepturi depline de control
-                            if((Player[i].id_team==1 && PlayerCity.flag == 1) || (Player[i].id_team==2 && PlayerArsenal.flag == 1))
-                                Player[i].behavior = "Control Player";
-                        }
-                    // Daca a interceptat o pasa de la echipa adversa, se vor schimba rolurile tactice
-                    if (status == "defending")
-                        ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
-                }
+                fanion = 0;
+                HasBall = true;
+                ball.setDirection(false);
+                ///Schimbam comportamentul jucatorului care era destinat sa primeasca mingea
+                for (int i = 0; i < NoPlayers; i++)
+                    if (Player[i].behavior == "Receive Ball") {
+                        Player[i].behavior = "Wait";
+                        /// Daca este echipa controlata de utilizator, primeste drepturi depline de control
+                        if((Player[i].id_team==1 && PlayerCity.flag == 1) || (Player[i].id_team==2 && PlayerArsenal.flag == 1) || (Player[i].id_team==3 && PlayerChelsea.flag == 1)  || (Player[i].id_team==4 && PlayerLiverpool.flag == 1))
+                            Player[i].behavior = "Control Player";
+                    }
+                // Daca a interceptat o pasa de la echipa adversa, se vor schimba rolurile tactice
+                if (status == "defending")
+                    ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
                 if(shoot && !Gk) {
                     shoot = false;
                     if(goal)
@@ -135,6 +133,9 @@ public class PlayerLiverpool extends Character
                 AttackBall();
             }
 
+            if(refLink.GetKeyManager().pass || refLink.GetKeyManager().shoot || refLink.GetKeyManager().tackle) {
+                fanion = 0;
+            }
 
             if (fanion == 0) {   /// Daca s-a terminat animatia, poate incepe una noua
                 if (flag == 1)   /// Daca jucatorul este al echipei gazda, cea controlata de utilizator, executa instructiunile primite
@@ -188,12 +189,40 @@ public class PlayerLiverpool extends Character
                                 GetInput();
                                 ///Actualizeaza pozitia
                                 Move();
+                                ///Daca a fost detectata miscare, setam fanionul pentru animatie
+                                if(xMove!=0 || yMove != 0)
+                                    fanion = 24;
+                                if(refLink.GetKeyManager().left && refLink.GetKeyManager().up)
+                                    image = Assets.liverpoolRunningWithoutBallNW1;
+                                else if(refLink.GetKeyManager().left && refLink.GetKeyManager().down)
+                                    image = Assets.liverpoolRunningWithoutBallSW1;
+                                else if(refLink.GetKeyManager().right && refLink.GetKeyManager().up)
+                                    image = Assets.liverpoolRunningWithoutBallNE1;
+                                else if(refLink.GetKeyManager().right && refLink.GetKeyManager().down)
+                                    image = Assets.liverpoolRunningWithoutBallSE1;
+                                else if(refLink.GetKeyManager().right)
+                                    image = Assets.liverpoolRunningWithoutBallE1;
+                                else if(refLink.GetKeyManager().left)
+                                    image = Assets.liverpoolRunningWithoutBallW1;
+                                else if(refLink.GetKeyManager().up)
+                                    image = Assets.liverpoolRunningWithoutBallN1;
+                                else if(refLink.GetKeyManager().down)
+                                    image = Assets.liverpoolRunningWithoutBallS1;
                                 //Daca e apasata tasta pentru deposedare in jurul oponentului, recupereaza mingea
                                 if (refLink.GetKeyManager().tackle) {
                                     for (int i = 0; i < NoPlayers; i++)
                                         if (Player[i].HasBall && Player[i].GetX() <= GetX() && (GetX() <= Player[i].GetX() + 48) && (Player[i].GetY() <= GetY() + 24) && (GetY() + 24 <= Player[i].GetY() + 48)) {
                                             Player[i].HasBall = false;
-                                            Player[i].haveBeenTakled = 40;
+                                            Player[i].haveBeenTakled = 80;
+                                            haveBeenTakled = 30;
+                                            if(x >= Player[i].GetX() && y >= Player[i].GetY())
+                                                image = Assets.liverpooltackleNW;
+                                            else if(x <= Player[i].GetX() && y >= Player[i].GetY())
+                                                image = Assets.liverpooltackleNE;
+                                            else if(x <= Player[i].GetX() && y <= Player[i].GetY())
+                                                image = Assets.liverpooltackleSE;
+                                            else if(x >= Player[i].GetX() && y <= Player[i].GetY())
+                                                image = Assets.liverpooltackleSW;
                                             HasBall = true;
                                             ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
                                         }
@@ -227,9 +256,17 @@ public class PlayerLiverpool extends Character
                                             if ((Player[j].GetX() <= x) && (x <= Player[j].GetX() + 48) && (Player[j].GetY() <= y + 24) && (y + 24 <= Player[j].GetY() + 48)) {
                                                 HasBall = true;
                                                 Player[j].HasBall = false;
-                                                Player[j].haveBeenTakled = 40;
+                                                Player[j].haveBeenTakled = 80;
+                                                haveBeenTakled = 30;
+                                                if(x >= Player[j].GetX() && y >= Player[j].GetY())
+                                                    image = Assets.liverpooltackleNW;
+                                                else if(x <= Player[j].GetX() && y >= Player[j].GetY())
+                                                    image = Assets.liverpooltackleNE;
+                                                else if(x <= Player[j].GetX() && y <= Player[j].GetY())
+                                                    image = Assets.liverpooltackleSE;
+                                                else if(x >= Player[j].GetX() && y <= Player[j].GetY())
+                                                    image = Assets.liverpooltackleSW;
                                                 ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
-                                                ///////// Setez animatia pentru tackling //////////////////////////////////////////////////////////////////////////
                                             }
                                         }
                                     ///Actualizeaza pozitia
@@ -321,10 +358,10 @@ public class PlayerLiverpool extends Character
                         Move();
 
                         if (refLink.GetKeyManager().left && refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
-                            image = Assets.heroLeft4;
+                            image = Assets.liverpoolPassNW;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("NW");
                             ball.SetX(x - 24);
                             ball.SetY(y - 24);
@@ -332,10 +369,10 @@ public class PlayerLiverpool extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
-                            image = Assets.heroLeft4;
+                            image = Assets.liverpoolPassSW;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("SW");
                             ball.SetX(x - 24);
                             ball.SetY(y + 48);
@@ -343,30 +380,30 @@ public class PlayerLiverpool extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().down) {
-                            image = Assets.heroLeft4;
+                            image = Assets.liverpoolRunningWithBallSW1;
                             SetAttackMode();
                             SetSpeed(2.12f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX > 5 && -camY < (Map.height - 768) - 5) {
                                 camX += speed;
                                 camY -= speed;
                             } else if (-camX > 5) camX += speed;
                             else if (-camY < (Map.height - 768) - 5) camY -= speed;
                         } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().up) {
-                            image = Assets.heroLeft4;
+                            image = Assets.liverpoolRunningWithBallNW1;
                             SetAttackMode();
                             SetSpeed(2.12f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX > 5 && -camY > 5) {
                                 camX += speed;
                                 camY += speed;
                             } else if (-camX > 5) camX += speed;
                             else if (-camY > 5) camY += speed;
                         } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().pass) {
-                            image = Assets.block4;
+                            image = Assets.liverpoolPassW;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("W");
                             ball.SetX(x - 48);
                             ball.SetY(y);
@@ -374,17 +411,17 @@ public class PlayerLiverpool extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().left) {
-                            image = Assets.heroLeft4;
+                            image = Assets.liverpoolRunningWithBallW1;
                             SetNormalMode();
                             SetSpeed(3.0f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX > 5)
                                 camX += speed;
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
-                            image = Assets.heroLeft4;
+                            image = Assets.liverpoolPassNE;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("NE");
                             ball.SetX(x+24);
                             ball.SetY(y);
@@ -392,10 +429,10 @@ public class PlayerLiverpool extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
-                            image = Assets.heroLeft4;
+                            image = Assets.liverpoolPassSE;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("SE");
                             ball.SetX(x + 24);
                             ball.SetY(y + 24);
@@ -403,30 +440,30 @@ public class PlayerLiverpool extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().down) {
-                            image = Assets.block4;
+                            image = Assets.liverpoolRunningWithBallSE1;
                             SetAttackMode();
                             SetSpeed(2.12f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX < Map.width - 1536 - 5 && -camY < (Map.height - 768) - 5) {
                                 camX -= speed;
                                 camY -= speed;
                             } else if (-camX < Map.width - 1536 - 5) camX -= speed;
                             else if (-camY < (Map.height - 768) - 5) camY -= speed;
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().up) {
-                            image = Assets.block4;
+                            image = Assets.liverpoolRunningWithBallNE1;
                             SetAttackMode();
                             SetSpeed(2.12f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX < Map.width - 1536 - 5 && -camY > 5) {
                                 camX -= speed;
                                 camY += speed;
                             } else if (-camX < Map.width - 1536 - 5) camX -= speed;
                             else if (-camY > 5) camY += speed;
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().pass) {
-                            image = Assets.block4;
+                            image = Assets.liverpoolPassE;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("E");
                             ball.SetX(x+24);
                             ball.SetY(y);
@@ -434,17 +471,17 @@ public class PlayerLiverpool extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().right) {
-                            image = Assets.heroRight4;
+                            image = Assets.liverpoolRunningWithBallE1;
                             SetNormalMode();
                             SetSpeed(3.0f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX < Map.width - 1536 - 5)
                                 camX -= speed;
                         } else if (refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
-                            image = Assets.block4;
+                            image = Assets.liverpoolPassN;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("N");
                             ball.SetX(x - 24);
                             ball.SetY(y - 24);
@@ -452,16 +489,17 @@ public class PlayerLiverpool extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().up) {
-                            image = Assets.block4;
+                            image = Assets.liverpoolRunningWithBallN1;
                             SetNormalMode();
                             SetSpeed(3.0f);
+                            fanion = 24;
                             if (-camY > 5)
                                 camY += speed;
                         } else if (refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
-                            image = Assets.block4;
+                            image = Assets.liverpoolPassS;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("S");
                             ball.SetX(x);
                             ball.SetY(y + 48);
@@ -469,9 +507,10 @@ public class PlayerLiverpool extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().down) {
-                            image = Assets.block4;
+                            image = Assets.liverpoolRunningWithBallS1;
                             SetNormalMode();
                             SetSpeed(3.0f);
+                            fanion = 24;
                             if (-camY < (Map.height - 768) - 5)
                                 camY -= speed;
                         }
@@ -490,18 +529,19 @@ public class PlayerLiverpool extends Character
                             ball.SetY(y);
                             HasBall = false;
                             behavior = "Wait";
-                            image = Assets.heroLeft4;
-                            fanion = 0;
+                            haveBeenTakled = 25;
 
                             //Daca jucatorul se afla in flancul stang de atac, va suta la coltul opus
                             if (y < Map.height/2) {
 
                                 Ball.actualizareX = ((Map.width-250.0f) - ball.GetX()) / 55;
                                 Ball.actualizareY = (580.0f - ball.GetY()) / 55; // y=580.0f este coordonata coltului dreapta
+                                image = Assets.liverpoolPassSE;
                             }else
                             {   //Daca jucatorul se afla in flancul drept de atac, va suta la coltul opus
                                 Ball.actualizareX = ((Map.width-250.0f) - ball.GetX()) / 55;
                                 Ball.actualizareY = (450.0f - ball.GetY()) / 55; // y=450.0f este coordonata coltului stanga
+                                image = Assets.liverpoolPassNE;
                             }
                         }
 
@@ -574,9 +614,17 @@ public class PlayerLiverpool extends Character
                                         if ((Player[j].GetX() <= x) && (x <= Player[j].GetX() + 48) && (Player[j].GetY() <= y + 24) && (y + 24 <= Player[j].GetY() + 48)) {
                                             HasBall = true;
                                             Player[j].HasBall = false;
-                                            Player[j].haveBeenTakled = 40;
+                                            Player[j].haveBeenTakled = 80;
+                                            haveBeenTakled = 30;
+                                            if(x >= Player[j].GetX() && y >= Player[j].GetY())
+                                                image = Assets.liverpooltackleNW;
+                                            else if(x <= Player[j].GetX() && y >= Player[j].GetY())
+                                                image = Assets.liverpooltackleNE;
+                                            else if(x <= Player[j].GetX() && y <= Player[j].GetY())
+                                                image = Assets.liverpooltackleSE;
+                                            else if(x >= Player[j].GetX() && y <= Player[j].GetY())
+                                                image = Assets.liverpooltackleSW;
                                             ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
-                                            ///////// Setez animatia pentru tackling //////////////////////////////////////////////////////////////////////////
                                         }
                                     }
                                 x += xMove;
@@ -730,7 +778,8 @@ public class PlayerLiverpool extends Character
                                         Ball.actualizareY = (580.0f - ball.GetY()) / 55;
                                         HasBall = false;
                                         behavior = "Wait";
-                                        image = Assets.heroLeft4;
+                                        image = Assets.liverpoolPassSW;
+                                        haveBeenTakled = 25;
                                     }
 
                                     //Daca jucatorul se afla in flancul stang de atac, va suta la coltul lung
@@ -762,7 +811,8 @@ public class PlayerLiverpool extends Character
                                         Ball.actualizareY = (450.0f - ball.GetY()) / 55;
                                         HasBall = false;
                                         behavior = "Wait";
-                                        image = Assets.heroLeft4;
+                                        image = Assets.liverpoolPassNW;
+                                        haveBeenTakled = 25;
                                     }
                                 }
 
@@ -1002,6 +1052,23 @@ public class PlayerLiverpool extends Character
                                         }
                                         x += xMove;
                                         y += yMove;
+                                        fanion = 24;
+                                        if(xMove > 0.01f && yMove > 0.01f)
+                                            image = Assets.liverpoolRunningWithBallSE1;
+                                        else if(xMove > 0.01f && yMove < -0.01f)
+                                            image = Assets.liverpoolRunningWithBallNE1;
+                                        else if(xMove < -0.01f && yMove > 0.01f)
+                                            image = Assets.liverpoolRunningWithBallSW1;
+                                        else if(xMove < -0.01f && yMove < -0.01f)
+                                            image = Assets.liverpoolRunningWithBallNW1;
+                                        else if(xMove > 0.01f )
+                                            image = Assets.liverpoolRunningWithBallE1;
+                                        else if(xMove < -0.01f )
+                                            image = Assets.liverpoolRunningWithBallW1;
+                                        else if(yMove > 0.01f)
+                                            image = Assets.liverpoolRunningWithBallS1;
+                                        else if(yMove < -0.01f)
+                                            image = Assets.liverpoolRunningWithBallN1;
                                     }
                                 }
                                 // System.out.println("--------------------------- " + pressingContor);
@@ -1040,33 +1107,194 @@ public class PlayerLiverpool extends Character
                         }
                     }
                 }
+                //Setez startul de animatie fara minge
+                if(!HasBall && behavior != "Control Player"){
+                    if(xMove != 0 || yMove != 0)
+                        fanion = 24;
+                    if(xMove > 0 && yMove > 0)
+                        image = Assets.liverpoolRunningWithoutBallSE1;
+                    else if(xMove > 0 && yMove < 0)
+                        image = Assets.liverpoolRunningWithoutBallNE1;
+                    else if(xMove < 0 && yMove > 0)
+                        image = Assets.liverpoolRunningWithoutBallSW1;
+                    else if(xMove < 0 && yMove < 0)
+                        image = Assets.liverpoolRunningWithoutBallNW1;
+                    else if(xMove > 0 )
+                        image = Assets.liverpoolRunningWithoutBallE1;
+                    else if(xMove < 0 )
+                        image = Assets.liverpoolRunningWithoutBallW1;
+                    else if(yMove > 0)
+                        image = Assets.liverpoolRunningWithoutBallS1;
+                    else if(yMove < 0)
+                        image = Assets.liverpoolRunningWithoutBallN1;
+                    else if(flag == 1)
+                        image = Assets.liverpoolWait1;
+                    else
+                        image = Assets.liverpoolWait2;
+                }
             } else {      /// Actualizez animatiile pentru fiecare situatie
                 fanion--;
-                ///Animatie stanga
-                if (image == Assets.heroLeft4 && fanion == 10) {
-                    image = Assets.heroLeft41;
-                    SetSpeed(6.0f);
+                ///Actualizeaza pozitia
+                Move();
+
+                ///Animatie cu minge
+
+                ///Animatie stanga-jos
+                if (image == Assets.liverpoolRunningWithBallSW1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithBallSW2;
                 }
-                if (image == Assets.heroLeft41 && fanion == 6) {
-                    image = Assets.heroLeft42;
-                    SetSpeed(4.5f);
+                if (image == Assets.liverpoolRunningWithBallSW2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithBallSW3;
                 }
-                if (image == Assets.heroLeft42 && fanion == 2) {
-                    image = Assets.heroLeft43;
-                    SetSpeed(3.7f);
+                if (image == Assets.liverpoolRunningWithBallSW3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithBallSW4;
+                }///Animatie stanga-sus
+                if (image == Assets.liverpoolRunningWithBallNW1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithBallNW2;
+                }
+                if (image == Assets.liverpoolRunningWithBallNW2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithBallNW3;
+                }
+                if (image == Assets.liverpoolRunningWithBallNW3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithBallNW4;
+                }///Animatie dreapta-jos
+                if (image == Assets.liverpoolRunningWithBallSE1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithBallSE2;
+                }
+                if (image == Assets.liverpoolRunningWithBallSE2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithBallSE3;
+                }
+                if (image == Assets.liverpoolRunningWithBallSE3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithBallSE4;
+                }///Animatie dreapta-sus
+                if (image == Assets.liverpoolRunningWithBallNE1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithBallNE2;
+                }
+                if (image == Assets.liverpoolRunningWithBallNE2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithBallNE3;
+                }
+                if (image == Assets.liverpoolRunningWithBallNE3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithBallNE4;
                 }
                 ///Animatie dreapta
-                if (image == Assets.heroRight4 && fanion == 10) {
-                    image = Assets.heroRight41;
-                    SetSpeed(3.0f);
+                if (image == Assets.liverpoolRunningWithBallE1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithBallE2;
                 }
-                if (image == Assets.heroRight41 && fanion == 6) {
-                    image = Assets.heroRight42;
-                    SetSpeed(3.0f);
+                if (image == Assets.liverpoolRunningWithBallE2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithBallE3;
                 }
-                if (image == Assets.heroRight42 && fanion == 2) {
-                    image = Assets.heroRight43;
-                    SetSpeed(3.0f);
+                if (image == Assets.liverpoolRunningWithBallE3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithBallE4;
+                }
+                ///Animatie stanga
+                if (image == Assets.liverpoolRunningWithBallW1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithBallW2;
+                }
+                if (image == Assets.liverpoolRunningWithBallW2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithBallW3;
+                }
+                if (image == Assets.liverpoolRunningWithBallW3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithBallW4;
+                }
+                ///Animatie sus
+                if (image == Assets.liverpoolRunningWithBallN1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithBallN2;
+                }
+                if (image == Assets.liverpoolRunningWithBallN2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithBallN3;
+                }
+                if (image == Assets.liverpoolRunningWithBallN3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithBallN4;
+                }
+                ///Animatie jos
+                if (image == Assets.liverpoolRunningWithBallS1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithBallS2;
+                }
+                if (image == Assets.liverpoolRunningWithBallS2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithBallS3;
+                }
+                if (image == Assets.liverpoolRunningWithBallS3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithBallS4;
+                }
+
+                ///Animatie fara minge
+
+                ///Animatie stanga-jos
+                if (image == Assets.liverpoolRunningWithoutBallSW1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithoutBallSW2;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallSW2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithoutBallSW3;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallSW3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithoutBallSW4;
+                }///Animatie stanga-sus
+                if (image == Assets.liverpoolRunningWithoutBallNW1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithoutBallNW2;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallNW2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithoutBallNW3;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallNW3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithoutBallNW4;
+                }///Animatie dreapta-jos
+                if (image == Assets.liverpoolRunningWithoutBallSE1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithoutBallSE2;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallSE2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithoutBallSE3;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallSE3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithoutBallSE4;
+                }///Animatie dreapta-sus
+                if (image == Assets.liverpoolRunningWithoutBallNE1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithoutBallNE2;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallNE2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithoutBallNE3;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallNE3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithoutBallNE4;
+                }
+                ///Animatie dreapta
+                if (image == Assets.liverpoolRunningWithoutBallE1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithoutBallE2;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallE2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithoutBallE3;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallE3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithoutBallE4;
+                }
+                ///Animatie stanga
+                if (image == Assets.liverpoolRunningWithoutBallW1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithoutBallW2;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallW2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithoutBallW3;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallW3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithoutBallW4;
+                }
+                ///Animatie sus
+                if (image == Assets.liverpoolRunningWithoutBallN1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithoutBallN2;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallN2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithoutBallN3;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallN3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithoutBallN4;
+                }
+                ///Animatie jos
+                if (image == Assets.liverpoolRunningWithoutBallS1 && fanion == 18) {
+                    image = Assets.liverpoolRunningWithoutBallS2;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallS2 && fanion == 12) {
+                    image = Assets.liverpoolRunningWithoutBallS3;
+                }
+                if (image == Assets.liverpoolRunningWithoutBallS3 && fanion == 6) {
+                    image = Assets.liverpoolRunningWithoutBallS4;
                 }
             }
         }
@@ -1237,6 +1465,7 @@ public class PlayerLiverpool extends Character
         }
         // dupa ce a fost data pasa, jucatorul nu ma este cel controlat de utilizator
         behavior = "Wait";
+        haveBeenTakled = 25;
     }
 
     private float DistanceFromPointToStraightLine(float xSrc, float ySrc, String dir, float x, float y)
@@ -1461,56 +1690,56 @@ public class PlayerLiverpool extends Character
         {
             ball.SetX(x - 24);
             ball.SetY(y + 48);
-            image = Assets.heroLeft4;
+            image = Assets.liverpoolPassSW;
             SetSpeed(0.0f);
         }
         if(dir == "NW")
         {
             ball.SetX(x-24);
             ball.SetY(y-24);
-            image = Assets.heroLeft4;
+            image = Assets.liverpoolPassNW;
             SetSpeed(0.0f);
         }
         if(dir == "SE")
         {
             ball.SetX(x + 24);
             ball.SetY(y + 24);
-            image = Assets.heroLeft4;
+            image = Assets.liverpoolPassSE;
             SetSpeed(0.0f);
         }
         if(dir == "NE")
         {
             ball.SetX(x);
             ball.SetY(y);
-            image = Assets.heroLeft4;
+            image = Assets.liverpoolPassNE;
             SetSpeed(0.0f);
         }
         if(dir == "S")
         {
             ball.SetX(x);
             ball.SetY(y + 48);
-            image = Assets.heroLeft4;
+            image = Assets.liverpoolPassS;
             SetSpeed(0.0f);
         }
         if(dir == "N")
         {
             ball.SetX(x - 24);
             ball.SetY(y - 24);
-            image = Assets.heroLeft4;
+            image = Assets.liverpoolPassN;
             SetSpeed(0.0f);
         }
         if(dir == "E")
         {
             ball.SetX(x);
             ball.SetY(y);
-            image = Assets.heroLeft4;
+            image = Assets.liverpoolPassE;
             SetSpeed(0.0f);
         }
         if(dir == "W")
         {
             ball.SetX(x - 48);
             ball.SetY(y);
-            image = Assets.heroLeft4;
+            image = Assets.liverpoolPassW;
             SetSpeed(0.0f);
         }
         ball.setDirection(true);
@@ -1519,8 +1748,8 @@ public class PlayerLiverpool extends Character
         behavior="Return to Home Region";
         HasBall = false;
         Player[targetPlayerID].behavior = "Receive Ball";
-        havePassed = 25;
-        fanion = 0; //////////////////////////////////////////////////////////////////// de schimbat
+        haveBeenTakled = 25;
+        fanion = 24;
     }
 
 
@@ -1541,8 +1770,8 @@ public class PlayerLiverpool extends Character
         g.drawImage(image, (int)x, (int)y, width, height, null);
 
         ///doar pentru debug daca se doreste vizualizarea dreptunghiului de coliziune altfel se vor comenta urmatoarele doua linii
-        g.setColor(Color.blue);
-        g.fillRect((int)(x + bounds.x), (int)(y + bounds.y), bounds.width, bounds.height);
+        //g.setColor(Color.blue);
+        //g.fillRect((int)(x + bounds.x), (int)(y + bounds.y), bounds.width, bounds.height);
         //pentru Debug al echipei adverse
     }
 }

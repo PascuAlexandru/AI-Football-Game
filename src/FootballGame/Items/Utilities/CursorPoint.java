@@ -1,7 +1,6 @@
 package FootballGame.Items.Utilities;
 
-import FootballGame.Items.Item;
-import FootballGame.Items.PlayerCity;
+import FootballGame.Items.*;
 import FootballGame.Maps.Map;
 import FootballGame.RefLinks;
 
@@ -44,6 +43,51 @@ public class CursorPoint extends Item {
         {
             //Daca echipa Man City este cea folosita de utilizator, Cursorul va fi doar pe jucatorii acesteia
             if(Player[i].id_team == 1 && PlayerCity.flag==1)
+                if(Player[i].HasBall) {
+                    x = Player[i].GetX();
+                    y = Player[i].GetY() - height;
+                    outOfPlay = false;
+                }else if(Player[i].behavior == "Receive Ball"){
+                    x = Player[i].GetX();
+                    y = Player[i].GetY() - height;
+                    outOfPlay = false;
+                }else if(Player[i].behavior == "Control Player"){
+                    x = Player[i].GetX();
+                    y = Player[i].GetY() - height;
+                    outOfPlay = false;
+                }
+            //Daca echipa Arsenal este cea folosita de utilizator, Cursorul va fi doar pe jucatorii acesteia
+            if(Player[i].id_team == 2 && PlayerArsenal.flag==1)
+                if(Player[i].HasBall) {
+                    x = Player[i].GetX();
+                    y = Player[i].GetY() - height;
+                    outOfPlay = false;
+                }else if(Player[i].behavior == "Receive Ball"){
+                    x = Player[i].GetX();
+                    y = Player[i].GetY() - height;
+                    outOfPlay = false;
+                }else if(Player[i].behavior == "Control Player"){
+                    x = Player[i].GetX();
+                    y = Player[i].GetY() - height;
+                    outOfPlay = false;
+                }
+            //Daca echipa Chelsea este cea folosita de utilizator, Cursorul va fi doar pe jucatorii acesteia
+            if(Player[i].id_team == 3 && PlayerChelsea.flag==1)
+                if(Player[i].HasBall) {
+                    x = Player[i].GetX();
+                    y = Player[i].GetY() - height;
+                    outOfPlay = false;
+                }else if(Player[i].behavior == "Receive Ball"){
+                    x = Player[i].GetX();
+                    y = Player[i].GetY() - height;
+                    outOfPlay = false;
+                }else if(Player[i].behavior == "Control Player"){
+                    x = Player[i].GetX();
+                    y = Player[i].GetY() - height;
+                    outOfPlay = false;
+                }
+            //Daca echipa Liverpool este cea folosita de utilizator, Cursorul va fi doar pe jucatorii acesteia
+            if(Player[i].id_team == 4 && PlayerLiverpool.flag==1)
                 if(Player[i].HasBall) {
                     x = Player[i].GetX();
                     y = Player[i].GetY() - height;

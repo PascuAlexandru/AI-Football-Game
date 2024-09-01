@@ -35,7 +35,6 @@ public class PlayerCity extends Character
     private int fanion;
     public static String status;  /*!< Retine statusul echipei: defending or attacking  */
     public static byte flag = 0;
-    public int havePassed;
     public static String attackStrategy;
     public static String defenceStrategy;
 
@@ -51,13 +50,15 @@ public class PlayerCity extends Character
         ///Apel al constructorului clasei de baza
         super(refLink, x,y, Character.DEFAULT_CREATURE_WIDTH, Character.DEFAULT_CREATURE_HEIGHT);
         ///Seteaza imaginea de start a eroului
-        image = Assets.heroRight4;
+        if(flag == 1)
+            image = Assets.manCityWait1;
+        else
+            image = Assets.manCityWait2;
         id_team = 1;
         attackStrategy = "Possession Game";
         defenceStrategy = "Aggressive";
         ID = id;
         Gk = GK;
-        havePassed = 0;
         fanion = 0;
 
         homeRegionX = x;
@@ -110,27 +111,24 @@ public class PlayerCity extends Character
 
             /// Daca un jucator intercepteaza mingea, stabilim comportamentul dupa caz
             if (ball.GetX() <= GetX()+width/2 && (GetX()+width/2 <= ball.GetX() + width) && (ball.GetY() <= GetY() + height/2) && (GetY() + height/2 <= ball.GetY() + height)) {
-                if (havePassed != 0) {
-                    havePassed--;
-                } else {
-                    HasBall = true;
-                    ball.setDirection(false);
-                    ///Schimbam comportamentul jucatorului care era destinat sa primeasca mingea
-                    for (int i = 0; i < NoPlayers; i++)
-                        if (Player[i].behavior == "Receive Ball") {
-                            Player[i].behavior = "Wait";
-                            /// Daca este echipa controlata de utilizator, primeste drepturi depline de control
-                            if((Player[i].id_team==1 && PlayerCity.flag == 1) || (Player[i].id_team==2 && PlayerArsenal.flag == 1))
-                                Player[i].behavior = "Control Player";
-                            }
-                    // Daca a interceptat o pasa de la echipa adversa, se vor schimba rolurile tactice
-                    if (status == "defending")
-                        ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
-                    if(shoot && !Gk) {
-                        shoot = false;
-                        if(goal)
-                            goal = false;
-                    }
+                fanion = 0;
+                HasBall = true;
+                ball.setDirection(false);
+                ///Schimbam comportamentul jucatorului care era destinat sa primeasca mingea
+                for (int i = 0; i < NoPlayers; i++)
+                    if (Player[i].behavior == "Receive Ball") {
+                        Player[i].behavior = "Wait";
+                        /// Daca este echipa controlata de utilizator, primeste drepturi depline de control
+                        if((Player[i].id_team==1 && PlayerCity.flag == 1) || (Player[i].id_team==2 && PlayerArsenal.flag == 1) || (Player[i].id_team==3 && PlayerChelsea.flag == 1)  || (Player[i].id_team==4 && PlayerLiverpool.flag == 1))
+                            Player[i].behavior = "Control Player";
+                        }
+                // Daca a interceptat o pasa de la echipa adversa, se vor schimba rolurile tactice
+                if (status == "defending")
+                    ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
+                if(shoot && !Gk) {
+                    shoot = false;
+                    if(goal)
+                        goal = false;
                 }
             }
             if (behavior == "Receive Ball") {
@@ -140,6 +138,9 @@ public class PlayerCity extends Character
                 AttackBall();
             }
 
+            if(refLink.GetKeyManager().pass || refLink.GetKeyManager().shoot || refLink.GetKeyManager().tackle) {
+                fanion = 0;
+            }
 
             if (fanion == 0) {   /// Daca s-a terminat animatia, poate incepe una noua
                 if (flag == 1)   /// Daca jucatorul este al echipei gazda, cea controlata de utilizator, executa instructiunile primite
@@ -194,12 +195,40 @@ public class PlayerCity extends Character
                                 GetInput();
                                 ///Actualizeaza pozitia
                                 Move();
+                                ///Daca a fost detectata miscare, setam fanionul pentru animatie
+                                if(xMove!=0 || yMove != 0)
+                                    fanion = 24;
+                                if(refLink.GetKeyManager().left && refLink.GetKeyManager().up)
+                                    image = Assets.manCityRunningWithoutBallNW1;
+                                else if(refLink.GetKeyManager().left && refLink.GetKeyManager().down)
+                                    image = Assets.manCityRunningWithoutBallSW1;
+                                else if(refLink.GetKeyManager().right && refLink.GetKeyManager().up)
+                                    image = Assets.manCityRunningWithoutBallNE1;
+                                else if(refLink.GetKeyManager().right && refLink.GetKeyManager().down)
+                                    image = Assets.manCityRunningWithoutBallSE1;
+                                else if(refLink.GetKeyManager().right)
+                                    image = Assets.manCityRunningWithoutBallE1;
+                                else if(refLink.GetKeyManager().left)
+                                    image = Assets.manCityRunningWithoutBallW1;
+                                else if(refLink.GetKeyManager().up)
+                                    image = Assets.manCityRunningWithoutBallN1;
+                                else if(refLink.GetKeyManager().down)
+                                    image = Assets.manCityRunningWithoutBallS1;
                                 //Daca e apasata tasta pentru deposedare in jurul oponentului, recupereaza mingea
                                 if (refLink.GetKeyManager().tackle) {
                                     for (int i = 0; i < NoPlayers; i++)
                                         if (Player[i].HasBall && Player[i].GetX() <= GetX() && (GetX() <= Player[i].GetX() + 48) && (Player[i].GetY() <= GetY() + 24) && (GetY() + 24 <= Player[i].GetY() + 48)) {
                                             Player[i].HasBall = false;
-                                            Player[i].haveBeenTakled = 40;
+                                            Player[i].haveBeenTakled = 80;
+                                            haveBeenTakled = 30;
+                                            if(x >= Player[i].GetX() && y >= Player[i].GetY())
+                                                image = Assets.manCitytackleNW;
+                                            else if(x <= Player[i].GetX() && y >= Player[i].GetY())
+                                                image = Assets.manCitytackleNE;
+                                            else if(x <= Player[i].GetX() && y <= Player[i].GetY())
+                                                image = Assets.manCitytackleSE;
+                                            else if(x >= Player[i].GetX() && y <= Player[i].GetY())
+                                                image = Assets.manCitytackleSW;
                                             HasBall = true;
                                             ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
                                         }
@@ -233,9 +262,17 @@ public class PlayerCity extends Character
                                             if ((Player[j].GetX() <= x) && (x <= Player[j].GetX() + 48) && (Player[j].GetY() <= y + 24) && (y + 24 <= Player[j].GetY() + 48)) {
                                                 HasBall = true;
                                                 Player[j].HasBall = false;
-                                                Player[j].haveBeenTakled = 40;
+                                                Player[j].haveBeenTakled = 80;
+                                                haveBeenTakled = 30;
+                                                if(x >= Player[j].GetX() && y >= Player[j].GetY())
+                                                    image = Assets.manCitytackleNW;
+                                                else if(x <= Player[j].GetX() && y >= Player[j].GetY())
+                                                    image = Assets.manCitytackleNE;
+                                                else if(x <= Player[j].GetX() && y <= Player[j].GetY())
+                                                    image = Assets.manCitytackleSE;
+                                                else if(x >= Player[j].GetX() && y <= Player[j].GetY())
+                                                    image = Assets.manCitytackleSW;
                                                 ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
-                                                ///////// Setez animatia pentru tackling //////////////////////////////////////////////////////////////////////////
                                             }
                                         }
                                     ///Actualizeaza pozitia
@@ -326,10 +363,10 @@ public class PlayerCity extends Character
                         Move();
 
                         if (refLink.GetKeyManager().left && refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
-                            image = Assets.heroLeft4;
+                            image = Assets.manCityPassNW;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("NW");
                             ball.SetX(x - 24);
                             ball.SetY(y - 24);
@@ -337,10 +374,10 @@ public class PlayerCity extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
-                            image = Assets.heroLeft4;
+                            image = Assets.manCityPassSW;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("SW");
                             ball.SetX(x - 24);
                             ball.SetY(y + 48);
@@ -348,30 +385,30 @@ public class PlayerCity extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().down) {
-                            image = Assets.heroLeft4;
+                            image = Assets.manCityRunningWithBallSW1;
                             SetAttackMode();
                             SetSpeed(2.12f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX > 5 && -camY < (Map.height - 768) - 5) {
                                 camX += speed;
                                 camY -= speed;
                             } else if (-camX > 5) camX += speed;
                             else if (-camY < (Map.height - 768) - 5) camY -= speed;
                         } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().up) {
-                            image = Assets.heroLeft4;
+                            image = Assets.manCityRunningWithBallNW1;
                             SetAttackMode();
                             SetSpeed(2.12f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX > 5 && -camY > 5) {
                                 camX += speed;
                                 camY += speed;
                             } else if (-camX > 5) camX += speed;
                             else if (-camY > 5) camY += speed;
                         } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().pass) {
-                            image = Assets.block4;
+                            image = Assets.manCityPassW;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("W");
                             ball.SetX(x - 48);
                             ball.SetY(y);
@@ -379,17 +416,17 @@ public class PlayerCity extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().left) {
-                            image = Assets.heroLeft4;
+                            image = Assets.manCityRunningWithBallW1;
                             SetNormalMode();
                             SetSpeed(3.0f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX > 5)
                                 camX += speed;
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
-                            image = Assets.heroLeft4;
+                            image = Assets.manCityPassNE;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("NE");
                             ball.SetX(x+24);
                             ball.SetY(y);
@@ -397,10 +434,10 @@ public class PlayerCity extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
-                            image = Assets.heroLeft4;
+                            image = Assets.manCityPassSE;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("SE");
                             ball.SetX(x + 24);
                             ball.SetY(y + 24);
@@ -408,30 +445,30 @@ public class PlayerCity extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().down) {
-                            image = Assets.block4;
+                            image = Assets.manCityRunningWithBallSE1;
                             SetAttackMode();
                             SetSpeed(2.12f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX < Map.width - 1536 - 5 && -camY < (Map.height - 768) - 5) {
                                 camX -= speed;
                                 camY -= speed;
                             } else if (-camX < Map.width - 1536 - 5) camX -= speed;
                             else if (-camY < (Map.height - 768) - 5) camY -= speed;
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().up) {
-                            image = Assets.block4;
+                            image = Assets.manCityRunningWithBallNE1;
                             SetAttackMode();
                             SetSpeed(2.12f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX < Map.width - 1536 - 5 && -camY > 5) {
                                 camX -= speed;
                                 camY += speed;
                             } else if (-camX < Map.width - 1536 - 5) camX -= speed;
                             else if (-camY > 5) camY += speed;
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().pass) {
-                            image = Assets.block4;
+                            image = Assets.manCityPassE;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("E");
                             ball.SetX(x+24);
                             ball.SetY(y);
@@ -439,17 +476,17 @@ public class PlayerCity extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().right) {
-                            image = Assets.heroRight4;
+                            image = Assets.manCityRunningWithBallE1;
                             SetNormalMode();
                             SetSpeed(3.0f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX < Map.width - 1536 - 5)
                                 camX -= speed;
                         } else if (refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
-                            image = Assets.block4;
+                            image = Assets.manCityPassN;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("N");
                             ball.SetX(x - 24);
                             ball.SetY(y - 24);
@@ -457,16 +494,17 @@ public class PlayerCity extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().up) {
-                            image = Assets.block4;
+                            image = Assets.manCityRunningWithBallN1;
                             SetNormalMode();
                             SetSpeed(3.0f);
+                            fanion = 24;
                             if (-camY > 5)
                                 camY += speed;
                         } else if (refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
-                            image = Assets.block4;
+                            image = Assets.manCityPassS;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("S");
                             ball.SetX(x);
                             ball.SetY(y + 48);
@@ -474,9 +512,10 @@ public class PlayerCity extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().down) {
-                            image = Assets.block4;
+                            image = Assets.manCityRunningWithBallS1;
                             SetNormalMode();
                             SetSpeed(3.0f);
+                            fanion = 24;
                             if (-camY < (Map.height - 768) - 5)
                                 camY -= speed;
                         }
@@ -495,18 +534,19 @@ public class PlayerCity extends Character
                             ball.SetY(y);
                             HasBall = false;
                             behavior = "Wait";
-                            image = Assets.heroLeft4;
-                            fanion = 0;
+                            haveBeenTakled = 25;
 
                             //Daca jucatorul se afla in flancul stang de atac, va suta la coltul opus
                             if (y < Map.height/2) {
 
                                 Ball.actualizareX = ((Map.width-250.0f) - ball.GetX()) / 55;
                                 Ball.actualizareY = (580.0f - ball.GetY()) / 55; // y=580.0f este coordonata coltului dreapta
+                                image = Assets.manCityPassSE;
                             }else
                             {   //Daca jucatorul se afla in flancul drept de atac, va suta la coltul opus
                                 Ball.actualizareX = ((Map.width-250.0f) - ball.GetX()) / 55;
                                 Ball.actualizareY = (450.0f - ball.GetY()) / 55; // y=450.0f este coordonata coltului stanga
+                                image = Assets.manCityPassNE;
                             }
                         }
                     }
@@ -575,9 +615,17 @@ public class PlayerCity extends Character
                                         if ((Player[j].GetX() <= x) && (x <= Player[j].GetX() + 48) && (Player[j].GetY() <= y + 24) && (y + 24 <= Player[j].GetY() + 48)) {
                                             HasBall = true;
                                             Player[j].HasBall = false;
-                                            Player[j].haveBeenTakled = 40;
+                                            Player[j].haveBeenTakled = 80;
+                                            haveBeenTakled = 30;
+                                            if(x >= Player[j].GetX() && y >= Player[j].GetY())
+                                                image = Assets.manCitytackleNW;
+                                            else if(x <= Player[j].GetX() && y >= Player[j].GetY())
+                                                image = Assets.manCitytackleNE;
+                                            else if(x <= Player[j].GetX() && y <= Player[j].GetY())
+                                                image = Assets.manCitytackleSE;
+                                            else if(x >= Player[j].GetX() && y <= Player[j].GetY())
+                                                image = Assets.manCitytackleSW;
                                             ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
-                                            ///////// Setez animatia pentru tackling //////////////////////////////////////////////////////////////////////////
                                         }
                                     }
 
@@ -734,7 +782,8 @@ public class PlayerCity extends Character
                                         Ball.actualizareY = (580.0f - ball.GetY()) / 55;
                                         HasBall = false;
                                         behavior = "Wait";
-                                        image = Assets.heroLeft4;
+                                        image = Assets.manCityPassSW;
+                                        haveBeenTakled = 25;
                                     }
 
                                     //Daca jucatorul se afla in flancul stang de atac, va suta la coltul lung
@@ -766,7 +815,8 @@ public class PlayerCity extends Character
                                         Ball.actualizareY = (450.0f - ball.GetY()) / 55;
                                         HasBall = false;
                                         behavior = "Wait";
-                                        image = Assets.heroLeft4;
+                                        image = Assets.manCityPassNW;
+                                        haveBeenTakled = 25;
                                     }
                                 }
 
@@ -1006,6 +1056,23 @@ public class PlayerCity extends Character
                                         }
                                         x += xMove;
                                         y += yMove;
+                                        fanion = 24;
+                                        if(xMove > 0.01f && yMove > 0.01f)
+                                            image = Assets.manCityRunningWithBallSE1;
+                                        else if(xMove > 0.01f && yMove < -0.01f)
+                                            image = Assets.manCityRunningWithBallNE1;
+                                        else if(xMove < -0.01f && yMove > 0.01f)
+                                            image = Assets.manCityRunningWithBallSW1;
+                                        else if(xMove < -0.01f && yMove < -0.01f)
+                                            image = Assets.manCityRunningWithBallNW1;
+                                        else if(xMove > 0.01f )
+                                            image = Assets.manCityRunningWithBallE1;
+                                        else if(xMove < -0.01f )
+                                            image = Assets.manCityRunningWithBallW1;
+                                        else if(yMove > 0.01f)
+                                            image = Assets.manCityRunningWithBallS1;
+                                        else if(yMove < -0.01f)
+                                            image = Assets.manCityRunningWithBallN1;
                                     }
                                 }
                                 // System.out.println("--------------------------- " + pressingContor);
@@ -1045,34 +1112,195 @@ public class PlayerCity extends Character
                     }
                 }
 
+                //Setez startul de animatie fara minge
+                if(!HasBall && behavior != "Control Player"){
+                    if(xMove != 0 || yMove != 0)
+                        fanion = 24;
+                    if(xMove > 0 && yMove > 0)
+                        image = Assets.manCityRunningWithoutBallSE1;
+                    else if(xMove > 0 && yMove < 0)
+                        image = Assets.manCityRunningWithoutBallNE1;
+                    else if(xMove < 0 && yMove > 0)
+                        image = Assets.manCityRunningWithoutBallSW1;
+                    else if(xMove < 0 && yMove < 0)
+                        image = Assets.manCityRunningWithoutBallNW1;
+                    else if(xMove > 0 )
+                        image = Assets.manCityRunningWithoutBallE1;
+                    else if(xMove < 0 )
+                        image = Assets.manCityRunningWithoutBallW1;
+                    else if(yMove > 0)
+                        image = Assets.manCityRunningWithoutBallS1;
+                    else if(yMove < 0)
+                        image = Assets.manCityRunningWithoutBallN1;
+                    else if(flag == 1)
+                        image = Assets.manCityWait1;
+                    else
+                        image = Assets.manCityWait2;
+                }
 
             } else {      /// Actualizez animatiile pentru fiecare situatie
                 fanion--;
-                ///Animatie stanga
-                if (image == Assets.heroLeft4 && fanion == 10) {
-                    image = Assets.heroLeft41;
-                    SetSpeed(6.0f);
+                ///Actualizeaza pozitia
+                Move();
+
+                /// Animatie cu minge
+
+                ///Animatie stanga-jos
+                if (image == Assets.manCityRunningWithBallSW1 && fanion == 18) {
+                    image = Assets.manCityRunningWithBallSW2;
                 }
-                if (image == Assets.heroLeft41 && fanion == 6) {
-                    image = Assets.heroLeft42;
-                    SetSpeed(4.5f);
+                if (image == Assets.manCityRunningWithBallSW2 && fanion == 12) {
+                    image = Assets.manCityRunningWithBallSW3;
                 }
-                if (image == Assets.heroLeft42 && fanion == 2) {
-                    image = Assets.heroLeft43;
-                    SetSpeed(3.7f);
+                if (image == Assets.manCityRunningWithBallSW3 && fanion == 6) {
+                    image = Assets.manCityRunningWithBallSW4;
+                }///Animatie stanga-sus
+                if (image == Assets.manCityRunningWithBallNW1 && fanion == 18) {
+                    image = Assets.manCityRunningWithBallNW2;
+                }
+                if (image == Assets.manCityRunningWithBallNW2 && fanion == 12) {
+                    image = Assets.manCityRunningWithBallNW3;
+                }
+                if (image == Assets.manCityRunningWithBallNW3 && fanion == 6) {
+                    image = Assets.manCityRunningWithBallNW4;
+                }///Animatie dreapta-jos
+                if (image == Assets.manCityRunningWithBallSE1 && fanion == 18) {
+                    image = Assets.manCityRunningWithBallSE2;
+                }
+                if (image == Assets.manCityRunningWithBallSE2 && fanion == 12) {
+                    image = Assets.manCityRunningWithBallSE3;
+                }
+                if (image == Assets.manCityRunningWithBallSE3 && fanion == 6) {
+                    image = Assets.manCityRunningWithBallSE4;
+                }///Animatie dreapta-sus
+                if (image == Assets.manCityRunningWithBallNE1 && fanion == 18) {
+                    image = Assets.manCityRunningWithBallNE2;
+                }
+                if (image == Assets.manCityRunningWithBallNE2 && fanion == 12) {
+                    image = Assets.manCityRunningWithBallNE3;
+                }
+                if (image == Assets.manCityRunningWithBallNE3 && fanion == 6) {
+                    image = Assets.manCityRunningWithBallNE4;
                 }
                 ///Animatie dreapta
-                if (image == Assets.heroRight4 && fanion == 10) {
-                    image = Assets.heroRight41;
-                    SetSpeed(3.0f);
+                if (image == Assets.manCityRunningWithBallE1 && fanion == 18) {
+                    image = Assets.manCityRunningWithBallE2;
                 }
-                if (image == Assets.heroRight41 && fanion == 6) {
-                    image = Assets.heroRight42;
-                    SetSpeed(3.0f);
+                if (image == Assets.manCityRunningWithBallE2 && fanion == 12) {
+                    image = Assets.manCityRunningWithBallE3;
                 }
-                if (image == Assets.heroRight42 && fanion == 2) {
-                    image = Assets.heroRight43;
-                    SetSpeed(3.0f);
+                if (image == Assets.manCityRunningWithBallE3 && fanion == 6) {
+                    image = Assets.manCityRunningWithBallE4;
+                }
+                ///Animatie stanga
+                if (image == Assets.manCityRunningWithBallW1 && fanion == 18) {
+                    image = Assets.manCityRunningWithBallW2;
+                }
+                if (image == Assets.manCityRunningWithBallW2 && fanion == 12) {
+                    image = Assets.manCityRunningWithBallW3;
+                }
+                if (image == Assets.manCityRunningWithBallW3 && fanion == 6) {
+                    image = Assets.manCityRunningWithBallW4;
+                }
+                ///Animatie sus
+                if (image == Assets.manCityRunningWithBallN1 && fanion == 18) {
+                    image = Assets.manCityRunningWithBallN2;
+                }
+                if (image == Assets.manCityRunningWithBallN2 && fanion == 12) {
+                    image = Assets.manCityRunningWithBallN3;
+                }
+                if (image == Assets.manCityRunningWithBallN3 && fanion == 6) {
+                    image = Assets.manCityRunningWithBallN4;
+                }
+                ///Animatie jos
+                if (image == Assets.manCityRunningWithBallS1 && fanion == 18) {
+                    image = Assets.manCityRunningWithBallS2;
+                }
+                if (image == Assets.manCityRunningWithBallS2 && fanion == 12) {
+                    image = Assets.manCityRunningWithBallS3;
+                }
+                if (image == Assets.manCityRunningWithBallS3 && fanion == 6) {
+                    image = Assets.manCityRunningWithBallS4;
+                }
+
+                /// Animatie fara minge
+
+                ///Animatie stanga-jos
+                if (image == Assets.manCityRunningWithoutBallSW1 && fanion == 18) {
+                    image = Assets.manCityRunningWithoutBallSW2;
+                }
+                if (image == Assets.manCityRunningWithoutBallSW2 && fanion == 12) {
+                    image = Assets.manCityRunningWithoutBallSW3;
+                }
+                if (image == Assets.manCityRunningWithoutBallSW3 && fanion == 6) {
+                    image = Assets.manCityRunningWithoutBallSW4;
+                }///Animatie stanga-sus
+                if (image == Assets.manCityRunningWithoutBallNW1 && fanion == 18) {
+                    image = Assets.manCityRunningWithoutBallNW2;
+                }
+                if (image == Assets.manCityRunningWithoutBallNW2 && fanion == 12) {
+                    image = Assets.manCityRunningWithoutBallNW3;
+                }
+                if (image == Assets.manCityRunningWithoutBallNW3 && fanion == 6) {
+                    image = Assets.manCityRunningWithoutBallNW4;
+                }///Animatie dreapta-jos
+                if (image == Assets.manCityRunningWithoutBallSE1 && fanion == 18) {
+                    image = Assets.manCityRunningWithoutBallSE2;
+                }
+                if (image == Assets.manCityRunningWithoutBallSE2 && fanion == 12) {
+                    image = Assets.manCityRunningWithoutBallSE3;
+                }
+                if (image == Assets.manCityRunningWithoutBallSE3 && fanion == 6) {
+                    image = Assets.manCityRunningWithoutBallSE4;
+                }///Animatie dreapta-sus
+                if (image == Assets.manCityRunningWithoutBallNE1 && fanion == 18) {
+                    image = Assets.manCityRunningWithoutBallNE2;
+                }
+                if (image == Assets.manCityRunningWithoutBallNE2 && fanion == 12) {
+                    image = Assets.manCityRunningWithoutBallNE3;
+                }
+                if (image == Assets.manCityRunningWithoutBallNE3 && fanion == 6) {
+                    image = Assets.manCityRunningWithoutBallNE4;
+                }
+                ///Animatie dreapta
+                if (image == Assets.manCityRunningWithoutBallE1 && fanion == 18) {
+                    image = Assets.manCityRunningWithoutBallE2;
+                }
+                if (image == Assets.manCityRunningWithoutBallE2 && fanion == 12) {
+                    image = Assets.manCityRunningWithoutBallE3;
+                }
+                if (image == Assets.manCityRunningWithoutBallE3 && fanion == 6) {
+                    image = Assets.manCityRunningWithoutBallE4;
+                }
+                ///Animatie stanga
+                if (image == Assets.manCityRunningWithBallW1 && fanion == 18) {
+                    image = Assets.manCityRunningWithBallW2;
+                }
+                if (image == Assets.manCityRunningWithoutBallW2 && fanion == 12) {
+                    image = Assets.manCityRunningWithoutBallW3;
+                }
+                if (image == Assets.manCityRunningWithoutBallW3 && fanion == 6) {
+                    image = Assets.manCityRunningWithoutBallW4;
+                }
+                ///Animatie sus
+                if (image == Assets.manCityRunningWithoutBallN1 && fanion == 18) {
+                    image = Assets.manCityRunningWithoutBallN2;
+                }
+                if (image == Assets.manCityRunningWithoutBallN2 && fanion == 12) {
+                    image = Assets.manCityRunningWithoutBallN3;
+                }
+                if (image == Assets.manCityRunningWithoutBallN3 && fanion == 6) {
+                    image = Assets.manCityRunningWithoutBallN4;
+                }
+                ///Animatie jos
+                if (image == Assets.manCityRunningWithoutBallS1 && fanion == 18) {
+                    image = Assets.manCityRunningWithoutBallS2;
+                }
+                if (image == Assets.manCityRunningWithoutBallS2 && fanion == 12) {
+                    image = Assets.manCityRunningWithoutBallS3;
+                }
+                if (image == Assets.manCityRunningWithoutBallS3 && fanion == 6) {
+                    image = Assets.manCityRunningWithoutBallS4;
                 }
             }
         }
@@ -1244,6 +1472,7 @@ public class PlayerCity extends Character
         }
         // dupa ce a fost data pasa, jucatorul nu ma este cel controlat de utilizator
         behavior = "Wait";
+        haveBeenTakled = 25;
     }
 
     private float DistanceFromPointToStraightLine(float xSrc, float ySrc, String dir, float x, float y)
@@ -1466,56 +1695,56 @@ public class PlayerCity extends Character
         {
             ball.SetX(x - 24);
             ball.SetY(y + 48);
-            image = Assets.heroLeft4;
+            image = Assets.manCityPassSW;
             SetSpeed(0.0f);
         }
         if(dir == "NW")
         {
             ball.SetX(x-24);
             ball.SetY(y-24);
-            image = Assets.heroLeft4;
+            image = Assets.manCityPassNW;
             SetSpeed(0.0f);
         }
         if(dir == "SE")
         {
             ball.SetX(x + 24);
             ball.SetY(y + 24);
-            image = Assets.heroLeft4;
+            image = Assets.manCityPassSE;
             SetSpeed(0.0f);
         }
         if(dir == "NE")
         {
             ball.SetX(x);
             ball.SetY(y);
-            image = Assets.heroLeft4;
+            image = Assets.manCityPassNE;
             SetSpeed(0.0f);
         }
         if(dir == "S")
         {
             ball.SetX(x);
             ball.SetY(y + 48);
-            image = Assets.heroLeft4;
+            image = Assets.manCityPassS;
             SetSpeed(0.0f);
         }
         if(dir == "N")
         {
             ball.SetX(x - 24);
             ball.SetY(y - 24);
-            image = Assets.heroLeft4;
+            image = Assets.manCityPassN;
             SetSpeed(0.0f);
         }
         if(dir == "E")
         {
             ball.SetX(x);
             ball.SetY(y);
-            image = Assets.heroLeft4;
+            image = Assets.manCityPassE;
             SetSpeed(0.0f);
         }
         if(dir == "W")
         {
             ball.SetX(x - 48);
             ball.SetY(y);
-            image = Assets.heroLeft4;
+            image = Assets.manCityPassW;
             SetSpeed(0.0f);
         }
         ball.setDirection(true);
@@ -1524,8 +1753,8 @@ public class PlayerCity extends Character
         behavior="Return to Home Region";
         HasBall = false;
         Player[targetPlayerID].behavior = "Receive Ball";
-        havePassed = 25;
-        fanion = 0; //////////////////////////////////////////////////////////////////// de schimbat
+        haveBeenTakled = 25;
+        fanion = 24;
     }
 
 

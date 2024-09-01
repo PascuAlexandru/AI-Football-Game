@@ -48,12 +48,12 @@ public class ControlCenter {
         if(PlayerArsenal.flag == 1){
             PlayerArsenal.status = "attacking";
             Player[0] = new PlayerArsenal(refLink, Map.width / 2,Map.height / 2, (byte) 0, false);
-            Player[1] = new PlayerArsenal(refLink,672,78, (byte) 1, false);
-            Player[2] = new PlayerArsenal(refLink,972,500, (byte) 2, false);
-            Player[3] = new PlayerArsenal(refLink,750,178, (byte) 3, false);
-            Player[4] = new PlayerArsenal(refLink,815,600, (byte) 4, false);
-            Player[5] = new PlayerArsenal(refLink,750,896, (byte) 5, false);
-            Player[6] = new PlayerArsenal(refLink,750,896, (byte) 6, true);
+            Player[1] = new PlayerArsenal(refLink,450,400, (byte) 1, false);
+            Player[2] = new PlayerArsenal(refLink,450,600, (byte) 2, false);
+            Player[3] = new PlayerArsenal(refLink,750,180, (byte) 3, false);
+            Player[4] = new PlayerArsenal(refLink,700,500, (byte) 4, false);
+            Player[5] = new PlayerArsenal(refLink,750,830, (byte) 5, false);
+            Player[6] = new PlayerArsenal(refLink,250,500, (byte) 6, true);
         }
         if (PlayerChelsea.flag == 1) {
             PlayerChelsea.status = "attacking";

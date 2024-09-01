@@ -33,7 +33,6 @@ public class PlayerChelsea extends Character
     private int fanion;
     public static String status;  /*!< Retine statusul echipei: defending or attacking  */
     public static byte flag = 0;
-    public int havePassed;
     public static String attackStrategy;
     public static String defenceStrategy;
 
@@ -49,13 +48,15 @@ public class PlayerChelsea extends Character
         ///Apel al constructorului clasei de baza
         super(refLink, x,y, Character.DEFAULT_CREATURE_WIDTH, Character.DEFAULT_CREATURE_HEIGHT);
         ///Seteaza imaginea de start a eroului
-        image = Assets.heroRight4;
+        if(flag == 1)
+            image = Assets.chelseaWait1;
+        else
+            image = Assets.chelseaWait2;
         id_team = 3;
         attackStrategy = "Counter Attack";
         defenceStrategy = "Conservative";
         ID = id;
         Gk = GK;
-        havePassed = 0;
         fanion = 0;
 
         homeRegionX = x;
@@ -108,23 +109,20 @@ public class PlayerChelsea extends Character
 
             /// Daca un jucator intercepteaza mingea, stabilim comportamentul dupa caz
             if (ball.GetX() <= GetX()+width/2 && (GetX()+width/2 <= ball.GetX() + width) && (ball.GetY() <= GetY() + height/2) && (GetY() + height/2 <= ball.GetY() + height)) {
-                if (havePassed != 0) {
-                    havePassed--;
-                } else {
-                    HasBall = true;
-                    ball.setDirection(false);
-                    ///Schimbam comportamentul jucatorului care era destinat sa primeasca mingea
-                    for (int i = 0; i < NoPlayers; i++)
-                        if (Player[i].behavior == "Receive Ball") {
-                            Player[i].behavior = "Wait";
-                            /// Daca este echipa controlata de utilizator, primeste drepturi depline de control
-                            if((Player[i].id_team==1 && PlayerCity.flag == 1) || (Player[i].id_team==2 && PlayerArsenal.flag == 1))
-                                Player[i].behavior = "Control Player";
-                        }
-                    // Daca a interceptat o pasa de la echipa adversa, se vor schimba rolurile tactice
-                    if (status == "defending")
-                        ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
-                }
+                fanion = 0;
+                HasBall = true;
+                ball.setDirection(false);
+                ///Schimbam comportamentul jucatorului care era destinat sa primeasca mingea
+                for (int i = 0; i < NoPlayers; i++)
+                    if (Player[i].behavior == "Receive Ball") {
+                        Player[i].behavior = "Wait";
+                        /// Daca este echipa controlata de utilizator, primeste drepturi depline de control
+                        if((Player[i].id_team==1 && PlayerCity.flag == 1) || (Player[i].id_team==2 && PlayerArsenal.flag == 1) || (Player[i].id_team==3 && PlayerChelsea.flag == 1)  || (Player[i].id_team==4 && PlayerLiverpool.flag == 1))
+                            Player[i].behavior = "Control Player";
+                    }
+                // Daca a interceptat o pasa de la echipa adversa, se vor schimba rolurile tactice
+                if (status == "defending")
+                    ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
                 if(shoot && !Gk) {
                     shoot = false;
                     if(goal)
@@ -135,6 +133,9 @@ public class PlayerChelsea extends Character
                 AttackBall();
             }
 
+            if(refLink.GetKeyManager().pass || refLink.GetKeyManager().shoot || refLink.GetKeyManager().tackle) {
+                fanion = 0;
+            }
 
             if (fanion == 0) {   /// Daca s-a terminat animatia, poate incepe una noua
                 if (flag == 1)   /// Daca jucatorul este al echipei gazda, cea controlata de utilizator, executa instructiunile primite
@@ -188,12 +189,40 @@ public class PlayerChelsea extends Character
                                 GetInput();
                                 ///Actualizeaza pozitia
                                 Move();
+                                ///Daca a fost detectata miscare, setam fanionul pentru animatie
+                                if(xMove!=0 || yMove != 0)
+                                    fanion = 24;
+                                if(refLink.GetKeyManager().left && refLink.GetKeyManager().up)
+                                    image = Assets.chelseaRunningWithoutBallNW1;
+                                else if(refLink.GetKeyManager().left && refLink.GetKeyManager().down)
+                                    image = Assets.chelseaRunningWithoutBallSW1;
+                                else if(refLink.GetKeyManager().right && refLink.GetKeyManager().up)
+                                    image = Assets.chelseaRunningWithoutBallNE1;
+                                else if(refLink.GetKeyManager().right && refLink.GetKeyManager().down)
+                                    image = Assets.chelseaRunningWithoutBallSE1;
+                                else if(refLink.GetKeyManager().right)
+                                    image = Assets.chelseaRunningWithoutBallE1;
+                                else if(refLink.GetKeyManager().left)
+                                    image = Assets.chelseaRunningWithoutBallW1;
+                                else if(refLink.GetKeyManager().up)
+                                    image = Assets.chelseaRunningWithoutBallN1;
+                                else if(refLink.GetKeyManager().down)
+                                    image = Assets.chelseaRunningWithoutBallS1;
                                 //Daca e apasata tasta pentru deposedare in jurul oponentului, recupereaza mingea
                                 if (refLink.GetKeyManager().tackle) {
                                     for (int i = 0; i < NoPlayers; i++)
                                         if (Player[i].HasBall && Player[i].GetX() <= GetX() && (GetX() <= Player[i].GetX() + 48) && (Player[i].GetY() <= GetY() + 24) && (GetY() + 24 <= Player[i].GetY() + 48)) {
                                             Player[i].HasBall = false;
-                                            Player[i].haveBeenTakled = 40;
+                                            Player[i].haveBeenTakled = 80;
+                                            haveBeenTakled = 30;
+                                            if(x >= Player[i].GetX() && y >= Player[i].GetY())
+                                                image = Assets.chelseatackleNW;
+                                            else if(x <= Player[i].GetX() && y >= Player[i].GetY())
+                                                image = Assets.chelseatackleNE;
+                                            else if(x <= Player[i].GetX() && y <= Player[i].GetY())
+                                                image = Assets.chelseatackleSE;
+                                            else if(x >= Player[i].GetX() && y <= Player[i].GetY())
+                                                image = Assets.chelseatackleSW;
                                             HasBall = true;
                                             ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
                                         }
@@ -227,9 +256,17 @@ public class PlayerChelsea extends Character
                                             if ((Player[j].GetX() <= x) && (x <= Player[j].GetX() + 48) && (Player[j].GetY() <= y + 24) && (y + 24 <= Player[j].GetY() + 48)) {
                                                 HasBall = true;
                                                 Player[j].HasBall = false;
-                                                Player[j].haveBeenTakled = 40;
+                                                Player[j].haveBeenTakled = 80;
+                                                haveBeenTakled = 30;
+                                                if(x >= Player[j].GetX() && y >= Player[j].GetY())
+                                                    image = Assets.chelseatackleNW;
+                                                else if(x <= Player[j].GetX() && y >= Player[j].GetY())
+                                                    image = Assets.chelseatackleNE;
+                                                else if(x <= Player[j].GetX() && y <= Player[j].GetY())
+                                                    image = Assets.chelseatackleSE;
+                                                else if(x >= Player[j].GetX() && y <= Player[j].GetY())
+                                                    image = Assets.chelseatackleSW;
                                                 ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
-                                                ///////// Setez animatia pentru tackling //////////////////////////////////////////////////////////////////////////
                                             }
                                         }
                                     ///Actualizeaza pozitia
@@ -321,10 +358,10 @@ public class PlayerChelsea extends Character
                         Move();
 
                         if (refLink.GetKeyManager().left && refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
-                            image = Assets.heroLeft4;
+                            image = Assets.chelseaPassNW;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("NW");
                             ball.SetX(x - 24);
                             ball.SetY(y - 24);
@@ -332,10 +369,10 @@ public class PlayerChelsea extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
-                            image = Assets.heroLeft4;
+                            image = Assets.chelseaPassSW;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("SW");
                             ball.SetX(x - 24);
                             ball.SetY(y + 48);
@@ -343,30 +380,30 @@ public class PlayerChelsea extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().down) {
-                            image = Assets.heroLeft4;
+                            image = Assets.chelseaRunningWithBallSW1;
                             SetAttackMode();
                             SetSpeed(2.12f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX > 5 && -camY < (Map.height - 768) - 5) {
                                 camX += speed;
                                 camY -= speed;
                             } else if (-camX > 5) camX += speed;
                             else if (-camY < (Map.height - 768) - 5) camY -= speed;
                         } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().up) {
-                            image = Assets.heroLeft4;
+                            image = Assets.chelseaRunningWithBallNW1;
                             SetAttackMode();
                             SetSpeed(2.12f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX > 5 && -camY > 5) {
                                 camX += speed;
                                 camY += speed;
                             } else if (-camX > 5) camX += speed;
                             else if (-camY > 5) camY += speed;
                         } else if (refLink.GetKeyManager().left && refLink.GetKeyManager().pass) {
-                            image = Assets.block4;
+                            image = Assets.chelseaPassW;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("W");
                             ball.SetX(x - 48);
                             ball.SetY(y);
@@ -374,17 +411,17 @@ public class PlayerChelsea extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().left) {
-                            image = Assets.heroLeft4;
+                            image = Assets.chelseaRunningWithBallW1;
                             SetNormalMode();
                             SetSpeed(3.0f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX > 5)
                                 camX += speed;
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
-                            image = Assets.heroLeft4;
+                            image = Assets.chelseaPassNE;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("NE");
                             ball.SetX(x+24);
                             ball.SetY(y);
@@ -392,10 +429,10 @@ public class PlayerChelsea extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
-                            image = Assets.heroLeft4;
+                            image = Assets.chelseaPassSE;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("SE");
                             ball.SetX(x + 24);
                             ball.SetY(y + 24);
@@ -403,30 +440,30 @@ public class PlayerChelsea extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().down) {
-                            image = Assets.block4;
+                            image = Assets.chelseaRunningWithBallSE1;
                             SetAttackMode();
                             SetSpeed(2.12f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX < Map.width - 1536 - 5 && -camY < (Map.height - 768) - 5) {
                                 camX -= speed;
                                 camY -= speed;
                             } else if (-camX < Map.width - 1536 - 5) camX -= speed;
                             else if (-camY < (Map.height - 768) - 5) camY -= speed;
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().up) {
-                            image = Assets.block4;
+                            image = Assets.chelseaRunningWithBallNE1;
                             SetAttackMode();
                             SetSpeed(2.12f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX < Map.width - 1536 - 5 && -camY > 5) {
                                 camX -= speed;
                                 camY += speed;
                             } else if (-camX < Map.width - 1536 - 5) camX -= speed;
                             else if (-camY > 5) camY += speed;
                         } else if (refLink.GetKeyManager().right && refLink.GetKeyManager().pass) {
-                            image = Assets.block4;
+                            image = Assets.chelseaPassE;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("E");
                             ball.SetX(x+24);
                             ball.SetY(y);
@@ -434,17 +471,17 @@ public class PlayerChelsea extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().right) {
-                            image = Assets.heroRight4;
+                            image = Assets.chelseaRunningWithBallE1;
                             SetNormalMode();
                             SetSpeed(3.0f);
-                            fanion = 0;
+                            fanion = 24;
                             if (-camX < Map.width - 1536 - 5)
                                 camX -= speed;
                         } else if (refLink.GetKeyManager().up && refLink.GetKeyManager().pass) {
-                            image = Assets.block4;
+                            image = Assets.chelseaPassN;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("N");
                             ball.SetX(x - 24);
                             ball.SetY(y - 24);
@@ -452,16 +489,17 @@ public class PlayerChelsea extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().up) {
-                            image = Assets.block4;
+                            image = Assets.chelseaRunningWithBallN1;
                             SetNormalMode();
                             SetSpeed(3.0f);
+                            fanion = 24;
                             if (-camY > 5)
                                 camY += speed;
                         } else if (refLink.GetKeyManager().down && refLink.GetKeyManager().pass) {
-                            image = Assets.block4;
+                            image = Assets.chelseaPassS;
                             SetAttackMode();
                             SetSpeed(0.0f);
-                            fanion = 0;
+                            fanion = 24;
                             PassingBallCoordonations("S");
                             ball.SetX(x);
                             ball.SetY(y + 48);
@@ -469,9 +507,10 @@ public class PlayerChelsea extends Character
                             HasBall = false;
                             behavior = "Return to Home Region";
                         } else if (refLink.GetKeyManager().down) {
-                            image = Assets.block4;
+                            image = Assets.chelseaRunningWithBallS1;
                             SetNormalMode();
                             SetSpeed(3.0f);
+                            fanion = 24;
                             if (-camY < (Map.height - 768) - 5)
                                 camY -= speed;
                         }
@@ -490,18 +529,19 @@ public class PlayerChelsea extends Character
                             ball.SetY(y);
                             HasBall = false;
                             behavior = "Wait";
-                            image = Assets.heroLeft4;
-                            fanion = 0;
+                            haveBeenTakled = 25;
 
                             //Daca jucatorul se afla in flancul stang de atac, va suta la coltul opus
                             if (y < Map.height/2) {
 
                                 Ball.actualizareX = ((Map.width-250.0f) - ball.GetX()) / 55;
                                 Ball.actualizareY = (580.0f - ball.GetY()) / 55; // y=580.0f este coordonata coltului dreapta
+                                image = Assets.chelseaPassSE;
                             }else
                             {   //Daca jucatorul se afla in flancul drept de atac, va suta la coltul opus
                                 Ball.actualizareX = ((Map.width-250.0f) - ball.GetX()) / 55;
                                 Ball.actualizareY = (450.0f - ball.GetY()) / 55; // y=450.0f este coordonata coltului stanga
+                                image = Assets.chelseaPassNE;
                             }
                         }
 
@@ -574,9 +614,17 @@ public class PlayerChelsea extends Character
                                         if ((Player[j].GetX() <= x) && (x <= Player[j].GetX() + 48) && (Player[j].GetY() <= y + 24) && (y + 24 <= Player[j].GetY() + 48)) {
                                             HasBall = true;
                                             Player[j].HasBall = false;
-                                            Player[j].haveBeenTakled = 40;
+                                            Player[j].haveBeenTakled = 80;
+                                            haveBeenTakled = 30;
+                                            if(x >= Player[j].GetX() && y >= Player[j].GetY())
+                                                image = Assets.chelseatackleNW;
+                                            else if(x <= Player[j].GetX() && y >= Player[j].GetY())
+                                                image = Assets.chelseatackleNE;
+                                            else if(x <= Player[j].GetX() && y <= Player[j].GetY())
+                                                image = Assets.chelseatackleSE;
+                                            else if(x >= Player[j].GetX() && y <= Player[j].GetY())
+                                                image = Assets.chelseatackleSW;
                                             ControlCenter.change = true; // Se produce schimbarea: Cele doua echipe vor schimba rolurile ofesive si defensive
-                                            ///////// Setez animatia pentru tackling //////////////////////////////////////////////////////////////////////////
                                         }
                                     }
                                 x += xMove;
@@ -730,7 +778,8 @@ public class PlayerChelsea extends Character
                                         Ball.actualizareY = (580.0f - ball.GetY()) / 55;
                                         HasBall = false;
                                         behavior = "Wait";
-                                        image = Assets.heroLeft4;
+                                        image = Assets.chelseaPassSW;
+                                        haveBeenTakled = 25;
                                     }
 
                                     //Daca jucatorul se afla in flancul stang de atac, va suta la coltul lung
@@ -762,7 +811,8 @@ public class PlayerChelsea extends Character
                                         Ball.actualizareY = (450.0f - ball.GetY()) / 55;
                                         HasBall = false;
                                         behavior = "Wait";
-                                        image = Assets.heroLeft4;
+                                        image = Assets.chelseaPassNW;
+                                        haveBeenTakled = 25;
                                     }
                                 }
 
@@ -1002,6 +1052,23 @@ public class PlayerChelsea extends Character
                                         }
                                         x += xMove;
                                         y += yMove;
+                                        fanion = 24;
+                                        if(xMove > 0.01f && yMove > 0.01f)
+                                            image = Assets.chelseaRunningWithBallSE1;
+                                        else if(xMove > 0.01f && yMove < -0.01f)
+                                            image = Assets.chelseaRunningWithBallNE1;
+                                        else if(xMove < -0.01f && yMove > 0.01f)
+                                            image = Assets.chelseaRunningWithBallSW1;
+                                        else if(xMove < -0.01f && yMove < -0.01f)
+                                            image = Assets.chelseaRunningWithBallNW1;
+                                        else if(xMove > 0.01f )
+                                            image = Assets.chelseaRunningWithBallE1;
+                                        else if(xMove < -0.01f )
+                                            image = Assets.chelseaRunningWithBallW1;
+                                        else if(yMove > 0.01f)
+                                            image = Assets.chelseaRunningWithBallS1;
+                                        else if(yMove < -0.01f)
+                                            image = Assets.chelseaRunningWithBallN1;
                                     }
                                 }
                                 // System.out.println("--------------------------- " + pressingContor);
@@ -1040,33 +1107,194 @@ public class PlayerChelsea extends Character
                         }
                     }
                 }
+                //Setez startul de animatie fara minge
+                if(!HasBall && behavior != "Control Player"){
+                    if(xMove != 0 || yMove != 0)
+                        fanion = 24;
+                    if(xMove > 0 && yMove > 0)
+                        image = Assets.chelseaRunningWithoutBallSE1;
+                    else if(xMove > 0 && yMove < 0)
+                        image = Assets.chelseaRunningWithoutBallNE1;
+                    else if(xMove < 0 && yMove > 0)
+                        image = Assets.chelseaRunningWithoutBallSW1;
+                    else if(xMove < 0 && yMove < 0)
+                        image = Assets.chelseaRunningWithoutBallNW1;
+                    else if(xMove > 0 )
+                        image = Assets.chelseaRunningWithoutBallE1;
+                    else if(xMove < 0 )
+                        image = Assets.chelseaRunningWithoutBallW1;
+                    else if(yMove > 0)
+                        image = Assets.chelseaRunningWithoutBallS1;
+                    else if(yMove < 0)
+                        image = Assets.chelseaRunningWithoutBallN1;
+                    else if(flag == 1)
+                        image = Assets.chelseaWait1;
+                    else
+                        image = Assets.chelseaWait2;
+                }
             } else {      /// Actualizez animatiile pentru fiecare situatie
                 fanion--;
-                ///Animatie stanga
-                if (image == Assets.heroLeft4 && fanion == 10) {
-                    image = Assets.heroLeft41;
-                    SetSpeed(6.0f);
+                ///Actualizeaza pozitia
+                Move();
+
+                /// Animatia cu minge
+
+                ///Animatie stanga-jos
+                if (image == Assets.chelseaRunningWithBallSW1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithBallSW2;
                 }
-                if (image == Assets.heroLeft41 && fanion == 6) {
-                    image = Assets.heroLeft42;
-                    SetSpeed(4.5f);
+                if (image == Assets.chelseaRunningWithBallSW2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithBallSW3;
                 }
-                if (image == Assets.heroLeft42 && fanion == 2) {
-                    image = Assets.heroLeft43;
-                    SetSpeed(3.7f);
+                if (image == Assets.chelseaRunningWithBallSW3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithBallSW4;
+                }///Animatie stanga-sus
+                if (image == Assets.chelseaRunningWithBallNW1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithBallNW2;
+                }
+                if (image == Assets.chelseaRunningWithBallNW2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithBallNW3;
+                }
+                if (image == Assets.chelseaRunningWithBallNW3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithBallNW4;
+                }///Animatie dreapta-jos
+                if (image == Assets.chelseaRunningWithBallSE1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithBallSE2;
+                }
+                if (image == Assets.chelseaRunningWithBallSE2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithBallSE3;
+                }
+                if (image == Assets.chelseaRunningWithBallSE3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithBallSE4;
+                }///Animatie dreapta-sus
+                if (image == Assets.chelseaRunningWithBallNE1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithBallNE2;
+                }
+                if (image == Assets.chelseaRunningWithBallNE2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithBallNE3;
+                }
+                if (image == Assets.chelseaRunningWithBallNE3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithBallNE4;
                 }
                 ///Animatie dreapta
-                if (image == Assets.heroRight4 && fanion == 10) {
-                    image = Assets.heroRight41;
-                    SetSpeed(3.0f);
+                if (image == Assets.chelseaRunningWithBallE1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithBallE2;
                 }
-                if (image == Assets.heroRight41 && fanion == 6) {
-                    image = Assets.heroRight42;
-                    SetSpeed(3.0f);
+                if (image == Assets.chelseaRunningWithBallE2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithBallE3;
                 }
-                if (image == Assets.heroRight42 && fanion == 2) {
-                    image = Assets.heroRight43;
-                    SetSpeed(3.0f);
+                if (image == Assets.chelseaRunningWithBallE3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithBallE4;
+                }
+                ///Animatie stanga
+                if (image == Assets.chelseaRunningWithBallW1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithBallW2;
+                }
+                if (image == Assets.chelseaRunningWithBallW2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithBallW3;
+                }
+                if (image == Assets.chelseaRunningWithBallW3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithBallW4;
+                }
+                ///Animatie sus
+                if (image == Assets.chelseaRunningWithBallN1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithBallN2;
+                }
+                if (image == Assets.chelseaRunningWithBallN2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithBallN3;
+                }
+                if (image == Assets.chelseaRunningWithBallN3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithBallN4;
+                }
+                ///Animatie jos
+                if (image == Assets.chelseaRunningWithBallS1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithBallS2;
+                }
+                if (image == Assets.chelseaRunningWithBallS2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithBallS3;
+                }
+                if (image == Assets.chelseaRunningWithBallS3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithBallS4;
+                }
+
+                /// Animatia fara minge
+
+                ///Animatie stanga-jos
+                if (image == Assets.chelseaRunningWithoutBallSW1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithoutBallSW2;
+                }
+                if (image == Assets.chelseaRunningWithoutBallSW2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithoutBallSW3;
+                }
+                if (image == Assets.chelseaRunningWithoutBallSW3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithoutBallSW4;
+                }///Animatie stanga-sus
+                if (image == Assets.chelseaRunningWithoutBallNW1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithoutBallNW2;
+                }
+                if (image == Assets.chelseaRunningWithoutBallNW2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithoutBallNW3;
+                }
+                if (image == Assets.chelseaRunningWithoutBallNW3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithoutBallNW4;
+                }///Animatie dreapta-jos
+                if (image == Assets.chelseaRunningWithoutBallSE1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithoutBallSE2;
+                }
+                if (image == Assets.chelseaRunningWithoutBallSE2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithoutBallSE3;
+                }
+                if (image == Assets.chelseaRunningWithoutBallSE3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithoutBallSE4;
+                }///Animatie dreapta-sus
+                if (image == Assets.chelseaRunningWithoutBallNE1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithoutBallNE2;
+                }
+                if (image == Assets.chelseaRunningWithoutBallNE2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithoutBallNE3;
+                }
+                if (image == Assets.chelseaRunningWithoutBallNE3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithoutBallNE4;
+                }
+                ///Animatie dreapta
+                if (image == Assets.chelseaRunningWithoutBallE1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithoutBallE2;
+                }
+                if (image == Assets.chelseaRunningWithoutBallE2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithoutBallE3;
+                }
+                if (image == Assets.chelseaRunningWithoutBallE3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithoutBallE4;
+                }
+                ///Animatie stanga
+                if (image == Assets.chelseaRunningWithoutBallW1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithoutBallW2;
+                }
+                if (image == Assets.chelseaRunningWithoutBallW2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithoutBallW3;
+                }
+                if (image == Assets.chelseaRunningWithoutBallW3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithoutBallW4;
+                }
+                ///Animatie sus
+                if (image == Assets.chelseaRunningWithoutBallN1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithoutBallN2;
+                }
+                if (image == Assets.chelseaRunningWithoutBallN2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithoutBallN3;
+                }
+                if (image == Assets.chelseaRunningWithoutBallN3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithoutBallN4;
+                }
+                ///Animatie jos
+                if (image == Assets.chelseaRunningWithoutBallS1 && fanion == 18) {
+                    image = Assets.chelseaRunningWithoutBallS2;
+                }
+                if (image == Assets.chelseaRunningWithoutBallS2 && fanion == 12) {
+                    image = Assets.chelseaRunningWithoutBallS3;
+                }
+                if (image == Assets.chelseaRunningWithoutBallS3 && fanion == 6) {
+                    image = Assets.chelseaRunningWithoutBallS4;
                 }
             }
         }
@@ -1237,6 +1465,7 @@ public class PlayerChelsea extends Character
         }
         // dupa ce a fost data pasa, jucatorul nu ma este cel controlat de utilizator
         behavior = "Wait";
+        haveBeenTakled = 25;
     }
 
     private float DistanceFromPointToStraightLine(float xSrc, float ySrc, String dir, float x, float y)
@@ -1461,56 +1690,56 @@ public class PlayerChelsea extends Character
         {
             ball.SetX(x - 24);
             ball.SetY(y + 48);
-            image = Assets.heroLeft4;
+            image = Assets.chelseaPassSW;
             SetSpeed(0.0f);
         }
         if(dir == "NW")
         {
             ball.SetX(x-24);
             ball.SetY(y-24);
-            image = Assets.heroLeft4;
+            image = Assets.chelseaPassNW;
             SetSpeed(0.0f);
         }
         if(dir == "SE")
         {
             ball.SetX(x + 24);
             ball.SetY(y + 24);
-            image = Assets.heroLeft4;
+            image = Assets.chelseaPassSE;
             SetSpeed(0.0f);
         }
         if(dir == "NE")
         {
             ball.SetX(x);
             ball.SetY(y);
-            image = Assets.heroLeft4;
+            image = Assets.chelseaPassNE;
             SetSpeed(0.0f);
         }
         if(dir == "S")
         {
             ball.SetX(x);
             ball.SetY(y + 48);
-            image = Assets.heroLeft4;
+            image = Assets.chelseaPassS;
             SetSpeed(0.0f);
         }
         if(dir == "N")
         {
             ball.SetX(x - 24);
             ball.SetY(y - 24);
-            image = Assets.heroLeft4;
+            image = Assets.chelseaPassN;
             SetSpeed(0.0f);
         }
         if(dir == "E")
         {
             ball.SetX(x);
             ball.SetY(y);
-            image = Assets.heroLeft4;
+            image = Assets.chelseaPassE;
             SetSpeed(0.0f);
         }
         if(dir == "W")
         {
             ball.SetX(x - 48);
             ball.SetY(y);
-            image = Assets.heroLeft4;
+            image = Assets.chelseaPassW;
             SetSpeed(0.0f);
         }
         ball.setDirection(true);
@@ -1519,8 +1748,8 @@ public class PlayerChelsea extends Character
         behavior="Return to Home Region";
         HasBall = false;
         Player[targetPlayerID].behavior = "Receive Ball";
-        havePassed = 25;
-        fanion = 0; //////////////////////////////////////////////////////////////////// de schimbat
+        haveBeenTakled = 25;
+        fanion = 24;
     }
 
 
@@ -1541,8 +1770,8 @@ public class PlayerChelsea extends Character
         g.drawImage(image, (int)x, (int)y, width, height, null);
 
         ///doar pentru debug daca se doreste vizualizarea dreptunghiului de coliziune altfel se vor comenta urmatoarele doua linii
-        g.setColor(Color.blue);
-        g.fillRect((int)(x + bounds.x), (int)(y + bounds.y), bounds.width, bounds.height);
+        //g.setColor(Color.blue);
+        //g.fillRect((int)(x + bounds.x), (int)(y + bounds.y), bounds.width, bounds.height);
         //pentru Debug al echipei adverse
     }
 }

@@ -25,7 +25,7 @@ public abstract class Character extends Item
     public byte ID;     /*!< Retine id-ul specific fiecarui jucator */
     public float homeRegionX;
     public float homeRegionY;
-    public int haveBeenTakled = 0;
+    public int haveBeenTakled;
     public boolean Gk;
     protected int pressingContor;
 
@@ -47,6 +47,7 @@ public abstract class Character extends Item
         xMove   = 0;
         yMove   = 0;
         pressingContor = 0;
+        haveBeenTakled = 0;
     }
 
     /*! \fn public void Move()

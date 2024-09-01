@@ -18,7 +18,7 @@ public abstract class Map
     public final static int height = 1080;         /*!< Inaltimea hartii in numar de dale.*/
     public static GoalNet LeftGoal;
     public static GoalNet RightGoal;
-    private Corner[] corner = new Corner[4];
+    protected Corner[] corner = new Corner[4];
 
     ImageLoader BF= new ImageLoader();
     BufferedImage image;
@@ -31,7 +31,7 @@ public abstract class Map
     {
             /// Retine referinta "shortcut".
         this.refLink = refLink;
-            ///incarca harta de start. Functia poate primi ca argument id-ul hartii ce poate fi incarcat.
+            ///incarca harta de start.
        image = BF.LoadImage("/textures/Stadium.png");
        LeftGoal = new GoalNet(refLink,170,344, (byte) 1);
        RightGoal = new GoalNet(refLink,1650,344, (byte) 2);
@@ -46,8 +46,6 @@ public abstract class Map
      */
     public  void Update()
     {
-        LeftGoal.Update();
-        RightGoal.Update();
     }
 
     /*! \fn public void Draw(Graphics g)
@@ -58,11 +56,5 @@ public abstract class Map
     public void Draw(Graphics g)
     {
             g.drawImage(image, 0, 0, width, height, null);
-            LeftGoal.Draw(g);
-            RightGoal.Draw(g);
-            corner[0].Draw(g);
-            corner[1].Draw(g);
-            corner[2].Draw(g);
-            corner[3].Draw(g);
     }
 }
