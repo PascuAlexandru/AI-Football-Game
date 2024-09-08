@@ -4,10 +4,13 @@ import FootballGame.Items.*;
 import FootballGame.Items.Character;
 import FootballGame.Items.Utilities.CursorPoint;
 import FootballGame.Maps.ManCityMap;
+import FootballGame.Maps.MapFactory;
 import FootballGame.RefLinks;
 import FootballGame.Maps.Map;
 
 import java.awt.*;
+
+import static FootballGame.Maps.Menu.mapType;
 
 /*! \class public class PlayState extends State
     \brief Implementeaza/controleaza jocul.
@@ -16,6 +19,7 @@ public class  PlayState extends State
 {
     public static PlayerCity speed;/*!< Referinta catre obiectul animat erou (controlat de utilizator).*/
     public static final int NoPlayers = 14;
+    private MapFactory mapFactory;
     private Map map = null;     /*!< Referinta catre harta curenta.*/
     public static Ball ball;    /*!< Referinta catre obiectul minge.*/
     public static Character[] Player = new Character[NoPlayers]; /*!< Referinta catre vector de jucatori >!*/
@@ -23,6 +27,7 @@ public class  PlayState extends State
     public static CursorPoint cursor;
     public static double contor;
     public static int timePlayed;
+    public static boolean gameFinished; /*!< Referinta pentru a determina cand un meci s-a incheiat este terminata sau nu.*/
     public static ControlCenter controlCenter;
 
     /*! \fn public PlayState(RefLinks refLink)
@@ -33,18 +38,16 @@ public class  PlayState extends State
     public PlayState(RefLinks refLink)
     {
             ///Apel al constructorului clasei de baza
-        super(refLink);
-            ///Construieste harta jocului
-        map = new ManCityMap(refLink);
+        super(refLink);///Construieste harta jocului
+        mapFactory= new MapFactory(refLink);
+        map = mapFactory.CreateMap(mapType);
             ///Referinta catre harta construita este setata si in obiectul shortcut pentru a fi accesibila si in alte clase ale programului.
         refLink.SetMap(map);
 
-        PlayerCity.flag = 1;  // astea se stabilesc in MenuState /////////////////////////////////////////////////
-        PlayerArsenal.flag = 2;
-
+        gameFinished = false;
         controlCenter = new ControlCenter(refLink, Player);
 
-        ball = new Ball(refLink,-48,-48,false,false);
+        ball = Ball.getInstance(refLink,-48,-48,false,false);
 
         cursor = new CursorPoint(refLink,Player[0].GetX(),Player[0].GetY());
         camX = -(Map.width - 1536) >> 1;
@@ -75,6 +78,10 @@ public class  PlayState extends State
         cursor.Update();
         contor ++;
         timePlayed = (int) (contor/100); // Consideram un minut de joc ca fiind 100 frameuri.
+
+        /// S-a terminat meciul. Inapoi catre meniu.
+        if(gameFinished)
+            State.SetState(new MenuState(refLink));
     }
 
     /*! \fn public void Draw(Graphics g)

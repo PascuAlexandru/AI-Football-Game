@@ -13,6 +13,7 @@ import static FootballGame.States.PlayState.camY;
 
 public class Ball extends Item {
 
+    private static Ball instance;
     private BufferedImage image;
     private boolean direction;
     public static int fanion = 0;
@@ -20,11 +21,19 @@ public class Ball extends Item {
     public static float actualizareX = 0.0f;
     public static float actualizareY = 0.0f;
 
-    public Ball(RefLinks refLink, float x, float y, boolean direction, boolean power) {
+    private Ball(RefLinks refLink, float x, float y, boolean direction, boolean power) {
         super(refLink, x, y, 48, 48);
         image = Assets.ball9;
         this.direction = direction;
         this.power = power;
+    }
+
+    public static Ball getInstance(RefLinks refLink, float x, float y, boolean direction, boolean power)
+    {
+        if (instance == null) {
+            instance = new Ball(refLink, x, y, direction, power); // Instanțierea se face doar o singură dată
+        }
+        return instance;
     }
 
     @Override

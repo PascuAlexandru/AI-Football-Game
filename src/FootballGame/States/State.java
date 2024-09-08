@@ -6,8 +6,8 @@ import FootballGame.RefLinks;
 /*! \class State
     \brief Implementeaza notiunea abstracta de stare a jocului/programului.
 
-    Un joc odata ce este lansat in executie nu trebuie "sa arunce jucatorul direct in lupta", este nevoie de
-    un meniu care sa contine optiuni: New Game, Load Game, Settings, About etc. Toate aceste optiuni nu sunt altceva
+    Un joc odata ce este lansat in executie nu trebuie "sa arunce jucatorii direct in meci", este nevoie de
+    un meniu care sa contine optiuni: Play Game, Settings, About etc. Toate aceste optiuni nu sunt altceva
     decat stari ale programului (jocului) ce trebuiesc incarcate si afisate functie de starea curenta.
  */
 public abstract class State

@@ -63,10 +63,7 @@ public class Game implements Runnable
     private Graphics        g;          /*!< Referinta catre un context grafic.*/
 
         ///Available states
-    public State playState;            /*!< Referinta catre joc.*/
-    private State menuState;            /*!< Referinta catre menu.*/
-    private State settingsState;        /*!< Referinta catre setari.*/
-    private State aboutState;           /*!< Referinta catre about.*/
+    private State menuState;           /*!< Referinta catre meniu.*/
     private KeyManager keyManager;      /*!< Referinta catre obiectul care gestioneaza intrarile din partea utilizatorului.*/
     private RefLinks refLink;            /*!< Referinta catre un obiect a carui sarcina este doar de a retine diverse referinte pentru a fi usor accesibile.*/
 
@@ -109,11 +106,10 @@ public class Game implements Runnable
         Assets.Init();
             ///Se construieste obiectul de tip shortcut ce va retine o serie de referinte catre elementele importante din program.
         refLink = new RefLinks(this);
-            ///Definirea starilor programului
-        playState       = new PlayState(refLink);
+            ///Definirea starii programului
         menuState       = new MenuState(refLink);
             ///Seteaza starea implicita cu care va fi lansat programul in executie
-        State.SetState(playState);
+        State.SetState(menuState);
     }
 
     /*! \fn public void run()
