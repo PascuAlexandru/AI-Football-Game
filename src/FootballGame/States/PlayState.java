@@ -27,6 +27,7 @@ public class  PlayState extends State
     public static CursorPoint cursor;
     public static double contor;
     public static int timePlayed;
+    public static boolean gameFinished; /*!< Referinta pentru a determina cand un meci s-a incheiat este terminata sau nu.*/
     public static ControlCenter controlCenter;
 
     /*! \fn public PlayState(RefLinks refLink)
@@ -43,9 +44,10 @@ public class  PlayState extends State
             ///Referinta catre harta construita este setata si in obiectul shortcut pentru a fi accesibila si in alte clase ale programului.
         refLink.SetMap(map);
 
+        gameFinished = false;
         controlCenter = new ControlCenter(refLink, Player);
 
-        ball = new Ball(refLink,-48,-48,false,false);
+        ball = Ball.getInstance(refLink,-48,-48,false,false);
 
         cursor = new CursorPoint(refLink,Player[0].GetX(),Player[0].GetY());
         camX = -(Map.width - 1536) >> 1;
@@ -76,6 +78,10 @@ public class  PlayState extends State
         cursor.Update();
         contor ++;
         timePlayed = (int) (contor/100); // Consideram un minut de joc ca fiind 100 frameuri.
+
+        /// S-a terminat meciul. Inapoi catre meniu.
+        if(gameFinished)
+            State.SetState(new MenuState(refLink));
     }
 
     /*! \fn public void Draw(Graphics g)

@@ -6,6 +6,7 @@ import FootballGame.States.PlayState;
 
 import static FootballGame.Maps.Map.LeftGoal;
 import static FootballGame.Maps.Map.RightGoal;
+import static FootballGame.Maps.Menu.highGraphicsSettings;
 import static FootballGame.States.PlayState.*;
 
 public class ControlCenter {
@@ -20,6 +21,7 @@ public class ControlCenter {
     public static int goalScoredTeam2;
     public static int contorPassesTeam1;
     public static int contorShotsTeam1;
+    private long startTime;
 
     public ControlCenter(RefLinks refLink, Character[] Player)
     {
@@ -48,11 +50,11 @@ public class ControlCenter {
         if(PlayerArsenal.flag == 1){
             PlayerArsenal.status = "attacking";
             Player[0] = new PlayerArsenal(refLink, Map.width / 2,Map.height / 2, (byte) 0, false);
-            Player[1] = new PlayerArsenal(refLink,450,400, (byte) 1, false);
-            Player[2] = new PlayerArsenal(refLink,450,600, (byte) 2, false);
-            Player[3] = new PlayerArsenal(refLink,750,180, (byte) 3, false);
+            Player[1] = new PlayerArsenal(refLink,450,250, (byte) 1, false);
+            Player[2] = new PlayerArsenal(refLink,400,500, (byte) 2, false);
+            Player[3] = new PlayerArsenal(refLink,450,750, (byte) 3, false);
             Player[4] = new PlayerArsenal(refLink,700,500, (byte) 4, false);
-            Player[5] = new PlayerArsenal(refLink,750,830, (byte) 5, false);
+            Player[5] = new PlayerArsenal(refLink,850,600, (byte) 5, false);
             Player[6] = new PlayerArsenal(refLink,250,500, (byte) 6, true);
         }
         if (PlayerChelsea.flag == 1) {
@@ -77,42 +79,42 @@ public class ControlCenter {
         }
         if(PlayerCity.flag == 2){
             PlayerCity.status = "defending";
-            Player[7] = new PlayerCity(refLink, 1300,300, (byte) 7, false);
-            Player[8] = new PlayerCity(refLink,1300,600, (byte) 8, false);
-            Player[9] = new PlayerCity(refLink,1150,300, (byte) 9, false);
-            Player[10] = new PlayerCity(refLink,1150,600, (byte) 10, false);
-            Player[11] = new PlayerCity(refLink,1000,600, (byte) 11, false);
-            Player[12] = new PlayerCity(refLink,1000,300, (byte) 12, false);
+            Player[7] = new PlayerCity(refLink, 1000,636, (byte) 7, false);
+            Player[8] = new PlayerCity(refLink,1300,676, (byte) 8, false);
+            Player[9] = new PlayerCity(refLink,1500,300, (byte) 9, false);
+            Player[10] = new PlayerCity(refLink,1250,400, (byte) 10, false);
+            Player[11] = new PlayerCity(refLink,1000,300, (byte) 11, false);
+            Player[12] = new PlayerCity(refLink,1500,650, (byte) 12, false);
             Player[13] = new PlayerCity(refLink,Map.width-300,500, (byte) 13, true);
         }
         if(PlayerArsenal.flag == 2){
             PlayerArsenal.status = "defending";
-            Player[7] = new PlayerArsenal(refLink, 1500,736, (byte) 7, false);
-            Player[8] = new PlayerArsenal(refLink,1500,876, (byte) 8, false);
-            Player[9] = new PlayerArsenal(refLink,1300,300, (byte) 9, false);
-            Player[10] = new PlayerArsenal(refLink,1300,600, (byte) 10, false);
+            Player[7] = new PlayerArsenal(refLink, 1000,636, (byte) 7, false);
+            Player[8] = new PlayerArsenal(refLink,1300,676, (byte) 8, false);
+            Player[9] = new PlayerArsenal(refLink,1500,300, (byte) 9, false);
+            Player[10] = new PlayerArsenal(refLink,1250,400, (byte) 10, false);
             Player[11] = new PlayerArsenal(refLink,1000,300, (byte) 11, false);
-            Player[12] = new PlayerArsenal(refLink,1000,600, (byte) 12, false);
+            Player[12] = new PlayerArsenal(refLink,1500,650, (byte) 12, false);
             Player[13] = new PlayerArsenal(refLink,Map.width-300,500, (byte) 13, true);
         }
         if(PlayerChelsea.flag == 2){
             PlayerChelsea.status = "defending";
-            Player[7] = new PlayerChelsea(refLink, 1000,736, (byte) 7, false);
-            Player[8] = new PlayerChelsea(refLink,1500,876, (byte) 8, false);
+            Player[7] = new PlayerChelsea(refLink, 1000,636, (byte) 7, false);
+            Player[8] = new PlayerChelsea(refLink,1300,676, (byte) 8, false);
             Player[9] = new PlayerChelsea(refLink,1500,300, (byte) 9, false);
-            Player[10] = new PlayerChelsea(refLink,1300,600, (byte) 10, false);
-            Player[11] = new PlayerChelsea(refLink,1300,300, (byte) 11, false);
-            Player[12] = new PlayerChelsea(refLink,1100,600, (byte) 12, false);
+            Player[10] = new PlayerChelsea(refLink,1250,400, (byte) 10, false);
+            Player[11] = new PlayerChelsea(refLink,1000,300, (byte) 11, false);
+            Player[12] = new PlayerChelsea(refLink,1500,650, (byte) 12, false);
             Player[13] = new PlayerChelsea(refLink,Map.width-300,500, (byte) 13, true);
         }
         if(PlayerLiverpool.flag == 2){
             PlayerLiverpool.status = "defending";
-            Player[7] = new PlayerLiverpool(refLink, 1000,736, (byte) 7, false);
-            Player[8] = new PlayerLiverpool(refLink,1500,876, (byte) 8, false);
+            Player[7] = new PlayerLiverpool(refLink, 1000,636, (byte) 7, false);
+            Player[8] = new PlayerLiverpool(refLink,1300,676, (byte) 8, false);
             Player[9] = new PlayerLiverpool(refLink,1500,300, (byte) 9, false);
-            Player[10] = new PlayerLiverpool(refLink,1300,600, (byte) 10, false);
-            Player[11] = new PlayerLiverpool(refLink,1300,300, (byte) 11, false);
-            Player[12] = new PlayerLiverpool(refLink,1100,600, (byte) 12, false);
+            Player[10] = new PlayerLiverpool(refLink,1250,400, (byte) 10, false);
+            Player[11] = new PlayerLiverpool(refLink,1000,300, (byte) 11, false);
+            Player[12] = new PlayerLiverpool(refLink,1500,650, (byte) 12, false);
             Player[13] = new PlayerLiverpool(refLink,Map.width-300,500, (byte) 13, true);
         }
 
@@ -128,6 +130,8 @@ public class ControlCenter {
 
         Player[0].HasBall = true;
         Player[0].behavior = "Control Player";
+        // Măsurăm durata unui meci de fotbal
+        startTime = System.nanoTime();
 
     }
 
@@ -1121,9 +1125,20 @@ public class ControlCenter {
 
         }
 
-        if(timePlayed > 90)
+        if(timePlayed == 90)
         {
             /// S-a terminat meciul. Inapoi catre meniu.
+            gameFinished = true;
+
+            /// Masuram durata meciului
+            long stopTime = System.nanoTime();
+            long duration = stopTime - startTime;
+
+            System.out.println("Grafica a fost setata pe High? " + highGraphicsSettings);
+            System.out.println("Durata meciului a fost de " + duration + " nanosecunde");
+            double frameDuration = duration / contor;
+            System.out.println("Durata unui frame a fost de " + frameDuration + " nanosecunde");
+
         }
 
     }

@@ -1138,6 +1138,51 @@ public class PlayerArsenal extends Character
                 ///Actualizeaza pozitia
                 Move();
 
+                ///Dupa actualizarea pozitiei, daca jucatorul este cel ce are mingea, ajustam camera in functie de pozitia sa
+                if(HasBall) {
+                    /// Daca jucatorul cu minge inainteaza pe directia NE, ajustam camera
+                    if (xMove > 0 && yMove < 0) {
+                        if (-camX < Map.width - 1536 - 5)
+                            camX -= xMove;
+                        if (-camY > 5)
+                            camY -= yMove;
+                    }
+                    /// Daca jucatorul cu minge inainteaza pe directia NW, ajustam camera
+                    else if (xMove < 0 && yMove < 0) {
+                        if (-camX > 5)
+                            camX -= xMove;
+                        if (-camY > 5)
+                            camY -= yMove;
+                    }
+                    /// Daca jucatorul cu minge inainteaza pe directia SW, ajustam camera
+                    else if (xMove < 0 && yMove > 0) {
+                        if (-camX > 5)
+                            camX -= xMove;
+                        if (-camY < (Map.height - 768) - 5)
+                            camY -= yMove;
+                    }
+                    /// Daca jucatorul cu minge inainteaza pe directia SE, ajustam camera
+                    else if (xMove > 0 && yMove > 0) {
+                        if (-camX < Map.width - 1536 - 5)
+                            camX -= xMove;
+                        if (-camY < (Map.height - 768) - 5)
+                            camY -= yMove;
+                    }
+                    else if (xMove > 0)
+                        if (-camX < Map.width - 1536 - 5)
+                            camX -= xMove;
+                    else if(xMove < 0)
+                        if (-camX > 5)
+                            camX -= xMove;
+                    else if(yMove < 0)
+                        if (-camY > 5)
+                            camY -= yMove;
+                    else if(yMove > 0)
+                        if (-camY < (Map.height - 768) - 5)
+                            camY -= yMove;
+
+                }
+
                 /// Animatia cu minge
 
                 ///Animatie stanga-jos
@@ -1673,7 +1718,7 @@ public class PlayerArsenal extends Character
             if(targetX < x)
                 xMove = -1.5f;
             else
-                yMove = 1.5f;
+                xMove = 1.5f;
         }
         if(Math.abs(y-targetY) < 3.0f)
             yMove = 0.0f;

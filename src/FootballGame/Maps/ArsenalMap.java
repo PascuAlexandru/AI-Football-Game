@@ -1,6 +1,8 @@
 package FootballGame.Maps;
 
 import FootballGame.Items.Utilities.FanFlags;
+import FootballGame.Items.Utilities.Lights;
+import FootballGame.Items.Utilities.Staff;
 import FootballGame.Items.Utilities.Stands;
 import FootballGame.RefLinks;
 
@@ -16,6 +18,8 @@ public class ArsenalMap extends Map {
 
     private Stands Crowd;
     private FanFlags fanFlags;
+    private Staff staff;
+    private Lights light;
 
     /*! \fn public ManCityMap(RefLinks refLink)
         \brief Constructorul de initializare al clasei.
@@ -28,6 +32,8 @@ public class ArsenalMap extends Map {
         if(highGraphicsSettings)
         {
             fanFlags = new FanFlags(refLink,0,0);
+            staff = new Staff(refLink, 0, 0);
+            light = new Lights(refLink, -192, -156);
         }
 
     }
@@ -38,6 +44,8 @@ public class ArsenalMap extends Map {
         RightGoal.Update();
         if(highGraphicsSettings) {
             fanFlags.Update();
+            staff.Update();
+            light.Update();
         }
     }
 
@@ -50,9 +58,12 @@ public class ArsenalMap extends Map {
         corner[1].Draw(g);
         corner[2].Draw(g);
         corner[3].Draw(g);
+        if(highGraphicsSettings) //Stafful echipelor vor trebuie desenat inainte de tribune, ceele din urma fiind mai apropiate de camera
+            staff.Draw(g);
         Crowd.Draw(g);
         if(highGraphicsSettings) {
             fanFlags.Draw(g);
+            light.Draw(g);
         }
     }
 }

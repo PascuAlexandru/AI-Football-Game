@@ -33,6 +33,12 @@ public class Assets
     public static BufferedImage goalNetLeft27;
     public static BufferedImage goalNetLeft28;
 
+    public static BufferedImage controls;
+    public static BufferedImage controlsEnter;
+    public static BufferedImage graphicsSettings;
+    public static BufferedImage graphicsHigh;
+    public static BufferedImage graphicsLow;
+
     public static BufferedImage goalNetRight;
     public static BufferedImage goalNetRight1;
     public static BufferedImage goalNetRight2;
@@ -530,6 +536,59 @@ public class Assets
 
     public static BufferedImage block4;
 
+
+    public static BufferedImage staff1;
+    public static BufferedImage staff2;
+    public static BufferedImage staff3;
+    public static BufferedImage staff4;
+    public static BufferedImage staff5;
+    public static BufferedImage staff6;
+    public static BufferedImage staff7;
+    public static BufferedImage staff8;
+    public static BufferedImage staff9;
+    public static BufferedImage staff10;
+    public static BufferedImage staff11;
+    public static BufferedImage staff12;
+    public static BufferedImage staff13;
+    public static BufferedImage staff14;
+    public static BufferedImage staff15;
+    public static BufferedImage staff16;
+    public static BufferedImage staff17;
+    public static BufferedImage staff18;
+    public static BufferedImage staff19;
+    public static BufferedImage staff20;
+    public static BufferedImage staff21;
+    public static BufferedImage staff22;
+    public static BufferedImage staff23;
+    public static BufferedImage staff24;
+    public static BufferedImage staff25;
+    public static BufferedImage staff26;
+    public static BufferedImage staff27;
+    public static BufferedImage staff28;
+    public static BufferedImage staff29;
+    public static BufferedImage staff30;
+    public static BufferedImage staff31;
+    public static BufferedImage staff32;
+    public static BufferedImage staff33;
+    public static BufferedImage staff34;
+    public static BufferedImage staff35;
+    public static BufferedImage staff36;
+    public static BufferedImage staff37;
+    public static BufferedImage staff38;
+    public static BufferedImage staff39;
+    public static BufferedImage staff40;
+    public static BufferedImage staff41;
+    public static BufferedImage staff42;
+    public static BufferedImage staff43;
+    public static BufferedImage staff44;
+    public static BufferedImage staff45;
+    public static BufferedImage staff46;
+    public static BufferedImage staff47;
+    public static BufferedImage staff48;
+    public static BufferedImage staff49;
+
+    public static BufferedImage lights;
+
     public static BufferedImage tribune_Red;
     public static BufferedImage tribune_Blue;
     public static BufferedImage tribune_Arsenal1;
@@ -994,6 +1053,58 @@ public class Assets
         ball8 = ball.crop(1,3);
         ball9 = ball.crop(2,0);
 
+        lights = ImageLoader.LoadImage("/textures/NocturneLights.png");
+
+        staff1 = ImageLoader.LoadImage("/textures/Staff/Staff1.png");
+        staff2 = ImageLoader.LoadImage("/textures/Staff/Staff2.png");
+        staff3 = ImageLoader.LoadImage("/textures/Staff/Staff3.png");
+        staff4 = ImageLoader.LoadImage("/textures/Staff/Staff4.png");
+        staff5 = ImageLoader.LoadImage("/textures/Staff/Staff5.png");
+        staff6 = ImageLoader.LoadImage("/textures/Staff/Staff6.png");
+        staff7 = ImageLoader.LoadImage("/textures/Staff/Staff7.png");
+        staff8 = ImageLoader.LoadImage("/textures/Staff/Staff8.png");
+        staff9 = ImageLoader.LoadImage("/textures/Staff/Staff9.png");
+        staff10 = ImageLoader.LoadImage("/textures/Staff/Staff10.png");
+        staff11 = ImageLoader.LoadImage("/textures/Staff/Staff11.png");
+        staff12 = ImageLoader.LoadImage("/textures/Staff/Staff12.png");
+        staff13 = ImageLoader.LoadImage("/textures/Staff/Staff13.png");
+        staff14 = ImageLoader.LoadImage("/textures/Staff/Staff14.png");
+        staff15 = ImageLoader.LoadImage("/textures/Staff/Staff15.png");
+        staff16 = ImageLoader.LoadImage("/textures/Staff/Staff16.png");
+        staff17 = ImageLoader.LoadImage("/textures/Staff/Staff17.png");
+        staff18 = ImageLoader.LoadImage("/textures/Staff/Staff18.png");
+        staff19 = ImageLoader.LoadImage("/textures/Staff/Staff19.png");
+        staff20 = ImageLoader.LoadImage("/textures/Staff/Staff20.png");
+        staff21 = ImageLoader.LoadImage("/textures/Staff/Staff21.png");
+        staff22 = ImageLoader.LoadImage("/textures/Staff/Staff22.png");
+        staff23 = ImageLoader.LoadImage("/textures/Staff/Staff23.png");
+        staff24 = ImageLoader.LoadImage("/textures/Staff/Staff24.png");
+        staff25 = ImageLoader.LoadImage("/textures/Staff/Staff25.png");
+        staff26 = ImageLoader.LoadImage("/textures/Staff/Staff26.png");
+        staff27 = ImageLoader.LoadImage("/textures/Staff/Staff27.png");
+        staff28 = ImageLoader.LoadImage("/textures/Staff/Staff28.png");
+        staff29 = ImageLoader.LoadImage("/textures/Staff/Staff29.png");
+        staff30 = ImageLoader.LoadImage("/textures/Staff/Staff30.png");
+        staff31 = ImageLoader.LoadImage("/textures/Staff/Staff31.png");
+        staff32 = ImageLoader.LoadImage("/textures/Staff/Staff32.png");
+        staff33 = ImageLoader.LoadImage("/textures/Staff/Staff33.png");
+        staff34 = ImageLoader.LoadImage("/textures/Staff/Staff34.png");
+        staff35 = ImageLoader.LoadImage("/textures/Staff/Staff35.png");
+        staff36 = ImageLoader.LoadImage("/textures/Staff/Staff36.png");
+        staff37 = ImageLoader.LoadImage("/textures/Staff/Staff37.png");
+        staff38 = ImageLoader.LoadImage("/textures/Staff/Staff38.png");
+        staff39 = ImageLoader.LoadImage("/textures/Staff/Staff39.png");
+        staff40 = ImageLoader.LoadImage("/textures/Staff/Staff40.png");
+        staff41 = ImageLoader.LoadImage("/textures/Staff/Staff41.png");
+        staff42 = ImageLoader.LoadImage("/textures/Staff/Staff42.png");
+        staff43 = ImageLoader.LoadImage("/textures/Staff/Staff43.png");
+        staff44 = ImageLoader.LoadImage("/textures/Staff/Staff44.png");
+        staff45 = ImageLoader.LoadImage("/textures/Staff/Staff45.png");
+        staff46 = ImageLoader.LoadImage("/textures/Staff/Staff46.png");
+        staff47 = ImageLoader.LoadImage("/textures/Staff/Staff47.png");
+        staff48 = ImageLoader.LoadImage("/textures/Staff/Staff48.png");
+        staff49 = ImageLoader.LoadImage("/textures/Staff/Staff49.png");
+
         tribune_Red = ImageLoader.LoadImage("/textures/Stadiums/Tribune_Red.png");
         tribune_Blue = ImageLoader.LoadImage("/textures/Stadiums/Tribune_Blue.png");
         tribune_Arsenal1 = ImageLoader.LoadImage("/textures/Stadiums/Arsenal1.png");
@@ -1020,6 +1131,12 @@ public class Assets
         tribune_ManCity4 = ImageLoader.LoadImage("/textures/Stadiums/ManCity4.png");
         tribune_ManCity5 = ImageLoader.LoadImage("/textures/Stadiums/ManCity5.png");
         tribune_ManCity6 = ImageLoader.LoadImage("/textures/Stadiums/ManCity6.png");
+
+         controls = ImageLoader.LoadImage("/textures/Main Menu/Controls.png");
+         controlsEnter = ImageLoader.LoadImage("/textures/Main Menu/Controls_Enter.png");
+         graphicsSettings = ImageLoader.LoadImage("/textures/Main Menu/Graphics.png");
+         graphicsHigh = ImageLoader.LoadImage("/textures/Main Menu/Graphics High.png");
+         graphicsLow = ImageLoader.LoadImage("/textures/Main Menu/Graphics Low.png");
 
         P1_Arsenal = ImageLoader.LoadImage("/textures/Match Menu/P1_Arsenal1.png");
         P1_Arsenal_Chelsea = ImageLoader.LoadImage("/textures/Match Menu/P1_Arsenal_Chelsea.png");

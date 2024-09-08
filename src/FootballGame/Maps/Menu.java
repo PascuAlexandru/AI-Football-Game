@@ -305,7 +305,7 @@ public class Menu {
         }else if (image == settingsmenu10)
         {
             somn();
-            State.SetState(new PlayState(refLink));////////////////////////////////////////////////////////////////////////////////
+            image = Assets.controls;
         }else if (image == playgame5 && refLink.GetKeyManager().right)
         {
             somn();
@@ -322,7 +322,53 @@ public class Menu {
         {
             somn();
             image = settings0;
-        } else if(image == Assets.P1_Arsenal && refLink.GetKeyManager().right){
+        } else if (image == Assets.controls && refLink.GetKeyManager().right)
+        {
+            somn();
+            image = Assets.graphicsSettings;
+        }else if (image == Assets.graphicsSettings && refLink.GetKeyManager().left)
+        {
+            somn();
+            image = Assets.controls;
+        }else if (image == Assets.controls && refLink.GetKeyManager().enter)
+        {
+            somn();
+            image = Assets.controlsEnter;
+        }else if (image == Assets.controlsEnter && refLink.GetKeyManager().esc)
+        {
+            somn();
+            image = Assets.controls;
+        }else if (image == Assets.graphicsSettings && refLink.GetKeyManager().enter)
+        {
+            somn();
+            image = Assets.graphicsHigh;
+        }else if (image == Assets.graphicsHigh && refLink.GetKeyManager().right)
+        {
+            somn();
+            image = Assets.graphicsLow;
+        }else if (image == Assets.graphicsLow && refLink.GetKeyManager().left)
+        {
+            somn();
+            image = Assets.graphicsHigh;
+        }else if (image == Assets.graphicsLow && refLink.GetKeyManager().esc)
+        {
+            somn();
+            image = Assets.graphicsSettings;
+            highGraphicsSettings = false;
+        }else if (image == Assets.graphicsHigh && refLink.GetKeyManager().esc)
+        {
+            somn();
+            image = Assets.graphicsSettings;
+            highGraphicsSettings = true;
+        }else if (image == Assets.graphicsSettings && refLink.GetKeyManager().esc)
+        {
+            somn();
+            image = settings0;
+        }else if (image == Assets.controls && refLink.GetKeyManager().esc)
+        {
+            somn();
+            image = settings0;
+        }else if(image == Assets.P1_Arsenal && refLink.GetKeyManager().right){
             somn();
             image = Assets.P1_Arsenal_Chelsea;
         }else if(image == Assets.P1_Arsenal && refLink.GetKeyManager().enter){

@@ -1,230 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9f63f0bd-07c3-4259-ad3b-2a5ee33c327f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Game 0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Game 1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Game 2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Game 3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Game 4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Game 5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Game Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Menu 1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Menu 10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Menu 2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Menu 3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Menu 4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Menu 5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Menu 6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Menu 7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Menu 8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Exit Menu 9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Game 0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Game 1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Game 2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Game 3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Game 4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Game 5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Game Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Menu 1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Menu 10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Menu 2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Menu 3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Menu 4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Menu 5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Menu 6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Menu 7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Menu 8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Play Menu 9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings 0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings 1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings 2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings 3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings 4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings 5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings Menu 1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings Menu 10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings Menu 2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings Menu 3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings Menu 4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings Menu 5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings Menu 6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings Menu 7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings Menu 8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Settings Menu 9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_Chelsea - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_Chelsea.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Arsenal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Arsenal_Chelsea - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Arsenal_Chelsea.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Arsenal_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Chelsea.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Chelsea_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Chelsea_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Chelsea_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Chelsea_Enter4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Chelsea_Enter5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Chelsea_Enter6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Chelsea_Liverpool - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Chelsea_Liverpool.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Liverpool.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Liverpool_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Liverpool_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Liverpool_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Liverpool_Enter4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Liverpool_Enter5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Liverpool_Enter6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Liverpool_ManCity - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_Liverpool_ManCity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_ManCity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_ManCity_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_ManCity_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_ManCity_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_ManCity_Enter4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_ManCity_Enter5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Arsenal_P2_ManCity_Enter6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_Liverpool - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_Liverpool.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Arsenal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Arsenal_Chelsea - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Arsenal_Chelsea.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Arsenal_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Arsenal_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Arsenal_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Arsenal_Enter4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Arsenal_Enter5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Arsenal_Enter6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Chelsea.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Chelsea_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Chelsea_Liverpool - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Chelsea_Liverpool.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Liverpool.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Liverpool_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Liverpool_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Liverpool_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Liverpool_Enter4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Liverpool_Enter5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Liverpool_Enter6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Liverpool_ManCity - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_Liverpool_ManCity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_ManCity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_ManCity_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_ManCity_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_ManCity_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_ManCity_Enter4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_ManCity_Enter5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Chelsea_P2_ManCity_Enter6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_ManCity - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_ManCity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Arsenal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Arsenal_Chelsea - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Arsenal_Chelsea.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Arsenal_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Arsenal_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Arsenal_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Arsenal_Enter4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Arsenal_Enter5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Arsenal_Enter6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Chelsea.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Chelsea_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Chelsea_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Chelsea_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Chelsea_Enter4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Chelsea_Enter5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Chelsea_Enter6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Chelsea_Liverpool - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Chelsea_Liverpool.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Liverpool.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Liverpool_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Liverpool_ManCity - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_Liverpool_ManCity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_ManCity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_ManCity_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_ManCity_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_ManCity_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_ManCity_Enter4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_ManCity_Enter5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_Liverpool_P2_ManCity_Enter6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Arsenal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Arsenal_Chelsea - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Arsenal_Chelsea.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Arsenal_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Arsenal_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Arsenal_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Arsenal_Enter4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Arsenal_Enter5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Arsenal_Enter6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Chelsea.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Chelsea_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Chelsea_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Chelsea_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Chelsea_Enter4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Chelsea_Enter5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Chelsea_Enter6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Chelsea_Liverpool - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Chelsea_Liverpool.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Liverpool.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Liverpool_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Liverpool_Enter2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Liverpool_Enter3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Liverpool_Enter4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Liverpool_Enter5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Liverpool_Enter6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Liverpool_ManCity - Reverse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_Liverpool_ManCity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_ManCity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/Match Menu/P1_ManCity_P2_ManCity_Enter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FootballGame/Items/Utilities/FanFlags.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FootballGame/Items/Utilities/Stands.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FootballGame/Maps/ArsenalMap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FootballGame/Maps/ChelseaMap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FootballGame/Maps/LiverpoolMap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FootballGame/Maps/MapFactory.java" afterDir="false" />
+    <list default="true" id="9f63f0bd-07c3-4259-ad3b-2a5ee33c327f" name="Default Changelist" comment="Added Stadiums with all their features&#10;Implemented Menu Game&#10;Added Animations for players, stadium stands, goal posts and menu">
+      <change afterPath="$PROJECT_DIR$/res/textures/Lights.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Lights2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Lights3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Controls.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Controls_Enter.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Graphics High.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Graphics Low.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Main Menu/Graphics.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/NocturneLights.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff17.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff18.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff19.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff20.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff21.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff22.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff23.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff24.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff25.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff26.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff27.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff28.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff29.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff30.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff31.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff33.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff34.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff35.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff36.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff37.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff38.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff39.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff40.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff41.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff42.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff43.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff44.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff45.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff46.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff47.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff48.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff49.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/Staff/Staff9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/FootballGame/Items/Utilities/Lights.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/FootballGame/Items/Utilities/Staff.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Graphics/Assets.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Graphics/Assets.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/Character.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/Character.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Graphics/SpriteSheet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Graphics/SpriteSheet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/Ball.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/ControlCenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/ControlCenter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/PlayerArsenal.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/PlayerArsenal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/PlayerChelsea.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/PlayerChelsea.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/PlayerCity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/PlayerCity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/Utilities/CursorPoint.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/Utilities/CursorPoint.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/Utilities/GoalNet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/Utilities/GoalNet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/PlayerLiverpool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Items/PlayerLiverpool.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Maps/ArsenalMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Maps/ArsenalMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Maps/ChelseaMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Maps/ChelseaMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Maps/LiverpoolMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Maps/LiverpoolMap.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Maps/ManCityMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Maps/ManCityMap.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Maps/Map.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Maps/Map.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Maps/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/Maps/Menu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/States/PlayState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FootballGame_PascuAlexandru-Nicolae/FootballGame/States/PlayState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FootballGame/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FootballGame/Graphics/Assets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Graphics/Assets.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FootballGame/Graphics/SpriteSheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Graphics/SpriteSheet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FootballGame/Items/Character.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Items/Character.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FootballGame/Items/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Items/Ball.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FootballGame/Items/ControlCenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Items/ControlCenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FootballGame/Items/PlayerArsenal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Items/PlayerArsenal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FootballGame/Items/PlayerChelsea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Items/PlayerChelsea.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FootballGame/Items/PlayerCity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Items/PlayerCity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FootballGame/Items/PlayerLiverpool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Items/PlayerLiverpool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FootballGame/Items/Utilities/CursorPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Items/Utilities/CursorPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FootballGame/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FootballGame/Maps/ArsenalMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Maps/ArsenalMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FootballGame/Maps/ChelseaMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Maps/ChelseaMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FootballGame/Maps/LiverpoolMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Maps/LiverpoolMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FootballGame/Maps/ManCityMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Maps/ManCityMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FootballGame/Maps/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Maps/Map.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FootballGame/Maps/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/Maps/Menu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FootballGame/States/PlayState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/States/PlayState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FootballGame/States/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FootballGame/States/State.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -337,7 +202,14 @@
       <option name="project" value="LOCAL" />
       <updated>1724359612721</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added Stadiums with all their features&#10;Implemented Menu Game&#10;Added Animations for players, stadium stands, goal posts and menu">
+      <created>1725223336423</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1725223336423</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -363,29 +235,30 @@
     <MESSAGE value="Commit message" />
     <MESSAGE value="Implemented A Star algorithm&#10;Fixed chasing balls bugs" />
     <MESSAGE value="Control Center complete functionalities&#10;Implemented all features for players used by CPU &#10;Implemented out, shoot, goals and corner" />
-    <option name="LAST_COMMIT_MESSAGE" value="Control Center complete functionalities&#10;Implemented all features for players used by CPU &#10;Implemented out, shoot, goals and corner" />
+    <MESSAGE value="Added Stadiums with all their features&#10;Implemented Menu Game&#10;Added Animations for players, stadium stands, goal posts and menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Stadiums with all their features&#10;Implemented Menu Game&#10;Added Animations for players, stadium stands, goal posts and menu" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="318" y="0" key="CommitChangelistDialog2" timestamp="1724359607944">
+    <state x="318" y="0" key="CommitChangelistDialog2" timestamp="1725223303174">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="318" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1724359607944" />
-    <state width="1493" height="225" key="GridCell.Tab.0.bottom" timestamp="1725222348186">
+    <state x="318" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1725223303174" />
+    <state width="1493" height="243" key="GridCell.Tab.0.bottom" timestamp="1725828275254">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="225" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1725222348186" />
-    <state width="1493" height="225" key="GridCell.Tab.0.center" timestamp="1725222348186">
+    <state width="1493" height="243" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1725828275254" />
+    <state width="1493" height="243" key="GridCell.Tab.0.center" timestamp="1725828275254">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="225" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1725222348186" />
-    <state width="1493" height="225" key="GridCell.Tab.0.left" timestamp="1725222348186">
+    <state width="1493" height="243" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1725828275254" />
+    <state width="1493" height="243" key="GridCell.Tab.0.left" timestamp="1725828275254">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="225" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1725222348186" />
-    <state width="1493" height="225" key="GridCell.Tab.0.right" timestamp="1725222348186">
+    <state width="1493" height="243" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1725828275254" />
+    <state width="1493" height="243" key="GridCell.Tab.0.right" timestamp="1725828275254">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="225" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1725222348186" />
+    <state width="1493" height="243" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1725828275254" />
     <state width="1493" height="240" key="GridCell.Tab.1.bottom" timestamp="1719558623111">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -402,14 +275,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="240" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1719558623110" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1724359647246">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1725223376146">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1724359647246" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1725182820050">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1725223376146" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1725826799904">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1725182820050" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1725826799904" />
     <state x="425" y="187" width="672" height="677" key="run.anything.popup" timestamp="1725194235977">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
